@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+    background: #00264D;
+}
+
+.wrapper .img_reg {
+    width: 100%;
+    height: 50%;
+    display: block;
+    object-fit: contain;
+    margin: auto;
+}
+
+.register_form {
+    background: #fff;
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+}
+
+.register_form h1 {
+    padding: 35px 35px 0 35px;
+    font-weight: 300;
+}
+
+.register_form .content {
+    padding: 35px;
+    text-align: center;
+}
+
+.register_form .input_field {
+    padding: 12px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.register_form .input_field input {
+    font-size: 16px;
+    display: block;
+    font-family: 'Rubik', sans-serif;
+    width: 100%;
+    padding: 10px 1px;
+    border: 0;
+    border-bottom: 1px solid #747474;
+    outline: none;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.register_form .input_field input::-webkit-input-placeholder {
+    text-transform: uppercase;
+}
+
+.register_form .input_field input::-moz-placeholder {
+    text-transform: uppercase;
+}
+
+.register_form .input_field input:-ms-input-placeholder {
+    text-transform: uppercase;
+}
+
+.register_form .input_field input::-ms-input-placeholder {
+    text-transform: uppercase;
+}
+
+.register_form .input_field input::placeholder {
+    text-transform: uppercase;
+}
+
+.register_form .input_field input:focus {
+    border-color: #222;
+}
+
+.register_form a.link {
+    text-decoration: none;
+    color: #747474;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.register_form .action {
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+}
+
+.register_form .action .btn {
+    width: 100%;
+    border: none;
+    padding: 18px;
+    font-family: 'Rubik', sans-serif;
+    cursor: pointer;
+    text-transform: uppercase;
+    background: #e8e9ec;
+    color: #777;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 0;
+    letter-spacing: 0.2px;
+    outline: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.register_form .action .btn:hover {
+    background: #d8d8d8;
+}
+
+.register_form .action .btn:nth-child(2) {
+    background: #0D47A1;
+    color: white;
+}
+
+
+.register_form .action .btn .register_form .action .btn:nth-child(2):hover {
+    background: #394E6E;
+}

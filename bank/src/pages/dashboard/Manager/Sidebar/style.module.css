@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+.topbar {
+    position: fixed;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+    width: 100%;
+    padding: 0 20px;
+    height: 60px;
+    display: grid;
+    grid-template-columns: 2fr 10fr 0.4fr 1fr;
+    align-items: center;
+    z-index: 1;
+}
+
+
+.logo h2 {
+    color: #00264D;
+}
+
+
+.user {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    justify-self: right;
+}
+
+.out{
+    float: right;
+    margin-left: 60rem;
+}
+
+/* sidebar */
+
+.sidebar {
+    position: fixed;
+    top: 60px;
+    width: 260px;
+    height: calc(100% - 60px);
+    background: #00264D;
+    overflow-x: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.sidebar .sidecontent {
+    margin-top: 20px;
+}
+
+.sidebar .sidecontent .link {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    padding: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+.sidebar .sidecontent .link:hover {
+    background: #fff;
+}
+
+.sidebar .sidecontent .link:hover a {
+    color: #00264D;
+}
+
+.sidebar .sidecontent .link .ioP {
+    color: #fff;
+}
+
+.sidebar .sidecontent .link:hover .ioP {
+    color: #00264D;
+}
+
+.sidebar .sidecontent .link .btn {
+    width: 100%;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    text-decoration: 'none';
+    text-align: right;
+    color: #fff;
+}
+
+.sidebar .sidecontent .link:hover .btn {
+    color: #00264D;
+}
+
+.sidebar .sidecontent .link.active {
+    color: #00264D;
+    background-color: #fff;
+}
+
+.sidebar .sidecontent .link.active .btn {
+    color: #00264D;
+}
+
+.sidebar .sidecontent .link.active .ioP {
+    color: #00264D;
+}
