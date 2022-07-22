@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model accounts {
+  accountNumber Int            @id @unique(map: "accountNumber_UNIQUE") @default(autoincrement())
+  type          Int
+  balance       Int
+  interest      Int
+  branchId      Int
+  userId        Int
+  active        Int
+  branch        branch         @relation(fields: [branchId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_accounts_branch")
+  users         users          @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_accounts_user")
+  request       request[]
+  transactions  transactions[]
+
+  @@index([branchId], map: "fk_accounts_branch_idx")
+  @@index([userId], map: "fk_accounts_user_idx")
+}
+
+model branch {
+  id       Int        @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  name     String     @db.VarChar(50)
+  address  String     @db.VarChar(150)
+  accounts accounts[]
+}
+
+model loan {
+  id     Int    @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  type   String @db.VarChar(45)
+  amount String @db.VarChar(10)
+  userId Int
+  status Int
+  period Int
+  users  users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_loan_user")
+
+  @@index([userId], map: "fk_loan_user_idx")
+}
+
+model transactions {
+  id            Int      @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  accountNumber Int
+  amount        Int
+  status        String   @db.VarChar(50)
+  type          Int
+  date          String   @db.VarChar(100)
+  accounts      accounts @relation(fields: [accountNumber], references: [accountNumber], onDelete: NoAction, onUpdate: NoAction, map: "fk_totrans_accounts")
+
+  @@index([accountNumber], map: "fk_totrans_accounts_idx")
+}
+
+model users {
+  id          Int        @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  name        String     @db.VarChar(50)
+  phoneNumber String     @unique(map: "phoneNumber_UNIQUE") @db.Char(10)
+  password    String     @db.VarChar(256)
+  address     String     @db.VarChar(150)
+  role        String     @db.Char(1)
+  accounts    accounts[]
+  loan        loan[]
+}
+
+model bank {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(45)
+  address String @db.VarChar(150)
+}
+
+model request {
+  id            Int      @id @default(autoincrement())
+  accountNumber Int
+  date          String   @db.VarChar(100)
+  status        Int
+  accounts      accounts @relation(fields: [accountNumber], references: [accountNumber], onDelete: NoAction, onUpdate: NoAction, map: "fk_req_acc_accnum")
+
+  @@index([accountNumber], map: "fk_req_acc_accnum_idx")
+}
