@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { IoPeople } from 'react-icons/io5';
-import { MdPassword, MdAlternateEmail, MdContactPhone } from 'react-icons/md';
-import { GiConfirmed } from 'react-icons/gi';
+import { MdPassword, MdContactPhone } from 'react-icons/md';
+import { ImAddressBook } from 'react-icons/im';
+import { GiCharacter } from 'react-icons/gi'; 
+
 
 
 import styles from "./style.module.css";
@@ -14,7 +16,7 @@ function Register() {
     <div className={styles.wrapper}>
       <div className={styles.register_form}>
         <form method="POST">
-          <h1>Sign Up</h1>
+          <h1>SIGN UP</h1>
           <div className={styles.content}>
             <div className={styles.input_field}>
               <input
@@ -27,17 +29,6 @@ function Register() {
               <IoPeople className={styles.iop} />
             </div>
 
-            <div className={styles.input_field}>
-              <input
-                type="email"
-                name="email"
-                className="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Email"
-              />
-              <MdAlternateEmail className={styles.ioP} />
-            </div>
 
             <div className={styles.input_field}>
               <input
@@ -52,17 +43,6 @@ function Register() {
 
             <div className={styles.input_field}>
               <input
-                type="password"
-                name="cpassword"
-                className="form-control"
-                id="exampleInputPassword1"
-                placeholder="Confirm password"
-              />
-              <GiConfirmed className={styles.iop} />
-            </div>
-
-            <div className={styles.input_field}>
-              <input
                 type="text"
                 name="phone"
                 className="form-control"
@@ -70,6 +50,28 @@ function Register() {
                 placeholder="Phone number"
               />
               <MdContactPhone className={styles.iop} />
+            </div>
+
+            <div className={styles.input_field}>
+              <input
+                type="text"
+                name="address"
+                className="form-control"
+                id="exampleInputPassword1"
+                placeholder="Address"
+              />
+              <ImAddressBook className={styles.iop} />
+            </div>
+
+            <div className={styles.input_field}>
+              <input
+                type="number"
+                name="role"
+                className="form-control"
+                id="exampleInputPassword1"
+                placeholder="Role"
+              />
+              <GiCharacter className={styles.iop} />
             </div>
           </div>
 
