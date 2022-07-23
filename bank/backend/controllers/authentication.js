@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
 
 
 exports.register = async (req, res) => {
-    if(req.body.phoneNumber === "" || req.body.password === "" || req.body.address === "" || req.body.name === "" || req.body.role === ""){
+    if(!req.body.phoneNumber || !req.body.password|| !req.body.address || !req.body.name || !req.body.role ){
         return res.status(401).json({ message: "Credentials cannot be empty"});
 
     }

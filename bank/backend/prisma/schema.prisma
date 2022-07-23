@@ -66,12 +66,6 @@ model users {
   loan        loan[]
 }
 
-model bank {
-  id      Int    @id @default(autoincrement())
-  name    String @db.VarChar(45)
-  address String @db.VarChar(150)
-}
-
 model request {
   id            Int      @id @default(autoincrement())
   accountNumber Int
