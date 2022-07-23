@@ -11,15 +11,24 @@ export const register = async (data, success, error) => {
     }
 }
 
-export const LoginFunction = async (data, success, error) => {
-    try {   
+export const login = async (data, success, error) => {
+    try {
         const response = await axios.post("/authentication/login", data);
-        success(response.data.message);
-
+        success("Login successfull", response.data.user);
     }
+
     catch(e) {
         error(e.response.data.message);
     }
+}
 
-    
+export const fetchAccounts = async (success, error) => {
+    try {
+        const response = await axios.get("/dashboard/customer/accounts");
+        success(response.data);
+    }
+    catch(e) {
+        console.log(e);
+        error(e.response.data.message);
+    }
 }

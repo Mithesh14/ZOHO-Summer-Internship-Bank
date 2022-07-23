@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-
 import { MdPassword, MdContactPhone } from 'react-icons/md';
-import styles from "./style.module.css";
-import Login from "../../../../assests/img/bank.svg";
+import { login } from "../../../../API"
 
-function LoginFunction() {
-  const [LoginphoneNumber, setLoginphoneNumber] = React.useState("");
-  const [Loginpassword, setLoginpassword] = React.useState("");
+import styles from "./style.module.css";
+import log from "../../../../assests/img/bank.svg";
+
+function Login() {
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
 
   const success = (message) => {
     alert(message);
@@ -20,12 +22,12 @@ function LoginFunction() {
   const onSubmit = (e) => {
     e.preventDefault();
  
-    if(LoginphoneNumber === "") return alert("Phone Number cannot be empty");
-    if(Loginpassword === "") return alert("Password cannot be empty");
+    if(phoneNumber === "") return alert("Phone Number cannot be empty");
+    if(password === "") return alert("Password cannot be empty");
  
-    const data = { LoginphoneNumber, Loginpassword };
+    const data = { phoneNumber, password };
 
-    LoginFunction(data, success, error);
+    login(data, success, error);
   }
 
   return (
@@ -36,22 +38,20 @@ function LoginFunction() {
           <div className={styles.content}>
             <div className={styles.input_field}>
               <input 
-              type="phonenumber" 
-              placeholder="PhoneNumber" 
-              autoComplete="nope" 
-              value={LoginphoneNumber}
-              onChange={(e) => setLoginphoneNumber(e.target.value)}
+                type="text"
+                placeholder="Phone Number" 
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
               <MdContactPhone className={styles.ioP} />
             </div>
 
             <div className={styles.input_field}>
               <input 
-              type="password" 
-              placeholder="Password" 
-              autoComplete="new-password" 
-              value={Loginpassword}
-              onChange={(e) => setLoginpassword(e.target.value)}
+                type="password" 
+                placeholder="Password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <MdPassword className={styles.ioP} />
             </div>
@@ -64,9 +64,9 @@ function LoginFunction() {
         </form>
 
       </div>
-      <img src={Login} className={styles.log_img} alt=""/>
+      <img src={log} className={styles.log_img} alt=""/>
     </div>
   );
 }
 
-export default LoginFunction;
+export default Login;

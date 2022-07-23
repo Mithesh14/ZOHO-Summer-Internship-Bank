@@ -16,7 +16,7 @@ exports.user = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    if(req.body.phoneNumber === "" || req.body.password === ""){
+    if(!req.body.phoneNumber || !req.body.password){
         return res.status(401).json({ message: "Credentials cannot be empty"});
     }
 
@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
         res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
 
         return res.status(200).json({
-            users: {
+            user: {
                 id: user.id,
                 name: user.name,
                 address: user.address,

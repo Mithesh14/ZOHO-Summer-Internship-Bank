@@ -53,6 +53,9 @@ exports.accounts = async (req, res) => {
               type: {
                 in: [3]
               }
+            },
+            include: {
+                branch: true
             }
           });
 
@@ -62,6 +65,9 @@ exports.accounts = async (req, res) => {
                 type: {
                     in: [1, 2]
                 }
+            },
+            include: {
+                branch: true
             }
         });
     
@@ -75,7 +81,8 @@ exports.accounts = async (req, res) => {
 
 exports.depositMoney = async (req, res) => {
 
-    const account = await prisma.accounts.findUnique({where:{accountNumber:Number.parseInt(req.body.accountNumber)}});
+    const account = await prisma.accounts.findMany({
+        where:{accountNumber:Number.parseInt(req.body.accountNumber)}});
 
     if(!account) {
         return res.status(411).json({message: "The requested account is not there!"});    
@@ -197,7 +204,7 @@ exports.closeAccount = async (req, res) => {
     const account = await prisma.accounts.findUnique({where:{accountNumber:Number.parseInt(req.body.accountNumber)}});
     
     if(!account) {
-
+        return res.status(411).json({message: "The requested account is not there!"});
     }
 
     try {
@@ -216,3 +223,28 @@ exports.closeAccount = async (req, res) => {
         res.status(500).json({message:"Internal server error"});
     }
 }
+
+exports.transactionTable = async (req, res) => {
+    const transactions = await prisma.transactions.findUnique({where:{id:Number.parseInt(req.body.id)}});
+    
+    if(!transactions) {
+        return res.status(411).json({message: "The requested transaction is not there!"});
+    }
+
+    try {
+        await prisma.request.create({
+            data: {
+                accountNumber: Number.parseInt(req.body.accountNumber),
+                date: new Date().toUTCString(),
+                status: 1 //REQUESTED
+            }
+        });
+        
+        return res.status(200).json({ message: "Request sent successfully!" });
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+

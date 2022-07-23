@@ -1,53 +1,64 @@
 import React from 'react';
+import { fetchAccounts } from "../../../../../API";
+
 import styles from "./style.module.css";
 
-const Acc = () => {
+const Accounts = () => {
+    const [accounts, setAccounts] = React.useState([]);
+    const [loans, setLoans] = React.useState([]);
+    const [active, setActive] = React.useState([]);
+
+    const success = (data) => {
+        setLoans(data.loanAccounts);
+        setAccounts(data.otherAccounts);
+        setActive(data.active);
+    }
+    
+    const error = (message) => {
+        console.log("Error");
+    }
+
+    React.useEffect(() => {
+        fetchAccounts(success, error);
+    }, []);
+
     return (
         <div className={styles.main}>
+             <h2>Other Accounts:</h2>
             <div className={styles.cards}>
-                <div className={styles.card}>
-                    <div className={styles.card_content}>
-                        <div className={styles.number}>1234 5678 9123</div>
-                        <div className={styles.card_name}>MKB nagar</div>
-                        <div className={styles.card_name}>Balance : Rs.65000</div>
-                        <div className={styles.card_name} ><i>Savings account</i></div>
-                    </div>
-                </div>
-                <div className={styles.card}>
-                    <div className={styles.card_content}>
-                        <div className={styles.number}>1234 5678 9123</div>
-                        <div className={styles.card_name}>Kottur</div>
-                        <div className={styles.card_name}>Balance : Rs.97200</div>
-                        <div className={styles.card_name} ><i>Business account</i></div>
-                    </div>
-                </div>
-                <div className={styles.card}>
-                    <div className={styles.card_content}>
-                        <div className={styles.number}>1004 5678 9003</div>
-                        <div className={styles.card_name}>Chrompet</div>
-                        <div className={styles.card_name}>Balance : Rs.2000</div>
-                        <div className={styles.card_name} ><i>Savings account</i></div>
-                    </div>
-                </div>
-                <div className={styles.card}>
-                    <div className={styles.card_content}>
-                        <div className={styles.number}>1234 5678 9123</div>
-                        <div className={styles.card_name}>MKB nagar</div>
-                        <div className={styles.card_name}>Balance : Rs.65000</div>
-                        <div className={styles.card_name} ><i>Savings account</i></div>
-                    </div>
-                </div>
-                <div className={styles.card}>
-                    <div className={styles.card_content}>
-                        <div className={styles.number}>1234 5678 9123</div>
-                        <div className={styles.card_name}>MKB nagar</div>
-                        <div className={styles.card_name}>Balance : Rs.65000</div>
-                        <div className={styles.card_name} ><i>Savings account</i></div>
-                    </div>
-                </div>
+                { accounts.map(account => <Card account={account}/>) }
             </div>
+            <h2>Loan Accounts:</h2>
+            <div className={styles.cards}>
+               { loans.map(account => <Card account={account}/>) }
+           </div>
         </div>
     )
 }
 
-export default Acc
+const Card = (props) => {
+    const accountTypes = {
+        1: "Savings Account",
+        2: "Business Account",
+        3: "Loan Account"
+    }
+
+    const activeTypes = {
+        0: "Closed",
+        1: "Active",
+    }
+
+    return (
+        <div className={styles.card}>
+            <div className={styles.card_content}>
+                <div className={styles.number}>{ props.account.accountNumber }</div>
+                <div className={styles.card_name}>BALANCE : { props.account.balance }</div>
+                <div className={styles.card_name} >BRANCH ID : { props.account.branchId }</div>
+                <div className={styles.card_name}>{ props.account.branch.address }</div>
+                <div className={styles.card_name} ><i>{ accountTypes[props.account.type] }, { activeTypes[props.account.active] }</i></div>
+            </div>
+        </div>
+    );
+}
+
+export default Accounts;

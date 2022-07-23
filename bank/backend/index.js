@@ -7,7 +7,7 @@ const cors = require("cors");
 const { login, register, user, logout, resetPassword } = require("./controllers/authentication");
 const guard = require("./middlewares/guard");
 const { addBranch,editBranch,deleteBranch, generateReport, viewRequests, updateRequest } = require("./controllers/admin");
-const { addAccount, closeAccount, accounts, depositMoney, withdrawMoney } = require("./controllers/customer");
+const { addAccount, closeAccount, accounts, depositMoney, withdrawMoney, transactionTable } = require("./controllers/customer");
 
 dotenv.config();
 
@@ -35,6 +35,7 @@ app.post("/dashboard/customer/closeAccount", guard(["0"]) ,closeAccount);
 app.get("/dashboard/customer/accounts", guard(["0"]) ,accounts);
 app.post("/dashboard/customer/depositMoney", guard(["0"]) ,depositMoney);
 app.post("/dashboard/customer/withdrawMoney", guard(["0"]) ,withdrawMoney);
+app.post("/dashboard/customer/transactionTable", guard(["0"]) ,transactionTable);
 
 app.listen(8080, () => {
     console.log("Server is running at http://localhost:8080");
