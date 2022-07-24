@@ -1,3 +1,4 @@
+const { branch } = require("../utils/prisma");
 const prisma = require("../utils/prisma");
 
 exports.addAccount = async (req, res) => {
@@ -241,4 +242,21 @@ exports.transactionTable = async (req, res) => {
         res.status(500).json({message:"Internal server error"});
     }
 }
+
+exports.fetchBranch = async (req, res) => {
+    if(!branch) {
+        return res.status(411).json({message: "The requested branch is not there!"});
+    }
+
+    try {
+        const branches = await prisma.branch.findMany();
+    
+        return res.status(200).json({ branches});
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
 

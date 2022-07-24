@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from "./style.module.css";
-import { depositMoney, fetchAccounts } from "../../../../../API"
+import { withdrawMoney, fetchAccounts } from "../../../../../API"
 import accounts from '../account';
 
-const Dep = () => {
+const Wit = () => {
     const [accounts, setAccounts] = React.useState([]);
     const [accountNumber, setAccountNumber] = React.useState("");
     const [amount, setAmount] = React.useState("");
@@ -28,24 +28,24 @@ const Dep = () => {
      
         const data = { accountNumber, amount };
     
-        depositMoney(data, success, error);
+        withdrawMoney(data, success, error);
     }
 
     return (
         <div className={styles.main}>
             <div className={styles.container}>
                 <form onSubmit={onSubmit} className={styles.contact_box}>
-                    <h2 className={styles.h2_cont}>DEPOSIT</h2>
+                    <h2 className={styles.h2_cont}>Withdraw Money</h2>
                     <select className={styles.field} onChange={(e) => setAccountNumber(e.target.value)}>
                         <option className={styles.field} value="" selected disabled>Select an account</option>
                         {accounts.map(account => <option value={account.accountNumber}>{account.accountNumber}</option>)}
                     </select>
                     <input type="number" className={styles.field} placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)}></input>
-                    <button type="submit" className={styles.btn}>Deposit money</button>
+                    <button type="submit" className={styles.btn}>Withdraw money</button>
                 </form>
             </div>
         </div>
     )
 }
 
-export default Dep
+export default Wit

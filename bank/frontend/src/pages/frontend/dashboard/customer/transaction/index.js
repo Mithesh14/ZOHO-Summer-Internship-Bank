@@ -1,7 +1,29 @@
-import React from 'react'
+import React from 'react';
+import { fetchTransaction, depositMoney } from "../../../../../API";
+
 import styles from "./style.module.css";
 
+const transactionTypes = {
+    1: "DEPOSIT",
+    2: "WITHDRAWAL"
+}
+
 const Tran = () => {
+    const [transactions, setTransactions] = React.useState([]);
+
+    const success = (transactions) => {
+        console.log(transactions);
+        setTransactions(transactions);
+    }
+
+    const error = (message) => {
+        alert(message);
+    }
+
+    React.useEffect(() => {
+        fetchTransaction(success, error);
+    }, []);
+
     return (
         <div className={styles.main}>
             <div className={styles.contact_box}>
@@ -17,46 +39,18 @@ const Tran = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Withdrawal</td>
-                            <td>6,789</td>
-                            <td>11/04/2022</td>
-                            <td>Success</td>
-                        </tr>
-                        <tr className={styles.active_row}>
-                            <td>2</td>
-                            <td>Deposit</td>
-                            <td>25000</td>
-                            <td>01/05/2022</td>
-                            <td>Success</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Withdrawal</td>
-                            <td>10679</td>
-                            <td>05/05/2022</td>
-                            <td>Success</td>
-                        </tr>
-
-                        <tr>
-                            <td>4</td>
-                            <td>Withdrawal</td>
-                            <td>4378</td>
-                            <td>05/05/2022</td>
-                            <td>Failure</td>
-                        </tr>
-
-
-                        <tr className={styles.active_row}>
-                            <td>5</td>
-                            <td>Deposit</td>
-                            <td>8306</td>
-                            <td>05/05/2022</td>
-                            <td>Success</td>
-                        </tr>
-
-
+                        {
+                            transactions.map(
+                                transaction => 
+                                <tr>
+                                    <td>{transaction.id}</td>
+                                    <td>{transactionTypes[transaction.type]}</td>
+                                    <td>{transaction.amount}</td>
+                                    <td>{transaction.date}</td>
+                                    <td>{transaction.status}</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>

@@ -11,6 +11,7 @@ import Customer from "./pages/frontend/dashboard/customer/Sidebar/index";
 import Account from "./pages/frontend/dashboard/customer/account"
 import Transaction from "./pages/frontend/dashboard/customer/transaction"
 import Deposit from "./pages/frontend/dashboard/customer/deposit"
+import Withdrawal from "./pages/frontend/dashboard/customer/withdrawal"
 import Loan from "./pages/frontend/dashboard/customer/loan"
 import Crtacc from "./pages/frontend/dashboard/customer/createacc";
 import Schedemi from "./pages/frontend/dashboard/customer/emi";
@@ -22,7 +23,7 @@ import Addbr from "./pages/frontend/dashboard/Manager/addbranch";
 import Editbr from "./pages/frontend/dashboard/Manager/editbranch";
 import Canloan from "./pages/frontend/dashboard/Manager/cancelloan";
 import Clseacc from "./pages/frontend/dashboard/Manager/closeacc";
-
+import EditPage from "./pages/frontend/dashboard/Manager/edit";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="account" element={<Account />} />
               <Route path="transaction" element={<Transaction />} />
               <Route path="deposit" element={<Deposit />} />
+              <Route path="withdrawal" element={<Withdrawal />} />
               <Route path="loan" element={<Loan />}/>
               <Route path="createacc" element={<Crtacc />}/>
               <Route path="emi" element={<Schedemi />}/>
@@ -51,6 +53,7 @@ const App = () => {
               <Route path="report" element={<Report />} />
               <Route path="addbranch" element={<Addbr />} />
               <Route path="editbranch" element={<Editbr />} />
+              <Route path="editbranch/:id" element={<EditPage/>} />
               <Route path="cancelloan" element={<Canloan />} />
               <Route path="closeacc" element={<Clseacc />} />
             </Route>

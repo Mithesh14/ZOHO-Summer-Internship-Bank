@@ -41,6 +41,11 @@ const Customer = () => {
                             <p className={styles.btn}>Deposit money</p>
                         </NavLink>
 
+                        <NavLink to="withdrawal" className={activeClass}>
+                            <GiPayMoney className={styles.ioP} />
+                            <p className={styles.btn}>Withdraw money</p>
+                        </NavLink>
+{/* 
                         <NavLink to="loan" className={activeClass}>
                             <GiReceiveMoney className={styles.ioP} />
                             <p className={styles.btn}>Loan</p></NavLink>
@@ -49,7 +54,7 @@ const Customer = () => {
 
                             <GiTakeMyMoney className={styles.ioP} />
                             <p className={styles.btn}>Schedule for EMI</p>
-                        </NavLink>
+                        </NavLink> */}
 
                         <NavLink to="createacc" className={activeClass}>
                             <IoCreateSharp className={styles.ioP} />

@@ -7,7 +7,7 @@ const cors = require("cors");
 const { login, register, user, logout, resetPassword } = require("./controllers/authentication");
 const guard = require("./middlewares/guard");
 const { addBranch,editBranch,deleteBranch, generateReport, viewRequests, updateRequest } = require("./controllers/admin");
-const { addAccount, closeAccount, accounts, depositMoney, withdrawMoney, transactionTable } = require("./controllers/customer");
+const { addAccount, closeAccount, accounts, depositMoney, withdrawMoney, transactionTable, fetchBranch } = require("./controllers/customer");
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ app.post("/dashboard/manager/editBranch", guard(["1"]) ,editBranch);
 app.post("/dashboard/manager/deleteBranch", guard(["1"]) ,deleteBranch);
 app.get("/dashboard/manager/generateReport", guard(["1"]) ,generateReport);
 app.get("/dashboard/manager/viewRequests", guard(["1"]) ,viewRequests);
-app.get("/dashboard/manager/updateRequest", guard(["1"]) ,updateRequest);
+app.post("/dashboard/manager/updateRequest", guard(["1"]) ,updateRequest);
 
 app.post("/dashboard/customer/addAccount", guard(["0"]) ,addAccount);
 app.post("/dashboard/customer/closeAccount", guard(["0"]) ,closeAccount);
@@ -36,6 +36,7 @@ app.get("/dashboard/customer/accounts", guard(["0"]) ,accounts);
 app.post("/dashboard/customer/depositMoney", guard(["0"]) ,depositMoney);
 app.post("/dashboard/customer/withdrawMoney", guard(["0"]) ,withdrawMoney);
 app.get("/dashboard/customer/transactionTable", guard(["0"]) ,transactionTable);
+app.get("/dashboard/customer/fetchbranch", guard(["0", "1"]) ,fetchBranch);
 
 app.listen(8080, () => {
     console.log("Server is running at http://localhost:8080");

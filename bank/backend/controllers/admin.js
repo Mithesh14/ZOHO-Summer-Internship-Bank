@@ -103,6 +103,8 @@ exports.generateReport = async (req, res) => {
                 }
             }
         });
+
+        const branches = await prisma.branch.findMany();
         
         const result = {};
 
@@ -110,7 +112,7 @@ exports.generateReport = async (req, res) => {
         sumAmount.forEach(item => result[item.branchId].amounts = item._sum.balance);
         sumLoan.forEach(item => result[item.branchId].loans = item._sum.balance);
 
-        return res.status(200).json({ result });
+        return res.status(200).json({ report: result, branches });
     }
     catch(e) {
         console.log(e);
@@ -120,7 +122,18 @@ exports.generateReport = async (req, res) => {
 
 exports.viewRequests = async (req, res) => {
     try {
-        const requests = await prisma.request.findMany();
+        const requests = await prisma.request.findMany({
+            select: {
+                id: true,
+                status: true,
+                accounts: {
+                    select: {
+                        accountNumber: true,
+                        users: true
+                    }
+                }
+            }
+        });
         return res.status(200).json({ requests });
     }
     catch(e) {
@@ -130,11 +143,12 @@ exports.viewRequests = async (req, res) => {
 }
 
 exports.updateRequest = async (req, res) => {
+    console.log(req.body);
     if(req.body.requestId == "" || req.body.status == ""){
         return res.status(401).json({ message: "Credentials cannot be empty" });
     }
 
-    if(req.body.status !== "2" && req.body.status !== "3"){
+    if(req.body.status !== 2 && req.body.status !== 3){
         return res.status(401).json({ message: "Status can be 2 or 3" });
     }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchAccounts } from "../../../../../API";
+import { fetchAccounts, closeAccount } from "../../../../../API";
 
 import styles from "./style.module.css";
 
@@ -48,6 +48,10 @@ const Card = (props) => {
         1: "Active",
     }
 
+    const onClose = () => {
+        closeAccount({accountNumber: props.account.accountNumber}, (message) => alert(message), (message) => alert(message));
+    }
+
     return (
         <div className={styles.card}>
             <div className={styles.card_content}>
@@ -57,7 +61,7 @@ const Card = (props) => {
                 <div className={styles.card_name}>{ props.account.branch.address }</div>
                 <div className={styles.card_name} ><i>{ accountTypes[props.account.type] }, { activeTypes[props.account.active] }</i></div>
             </div>
-            <button>Close</button>
+            <button onClick={onClose}>Close</button>
         </div>
     );
 }

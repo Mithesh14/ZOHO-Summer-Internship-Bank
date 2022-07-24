@@ -1,7 +1,23 @@
 import React from 'react'
+import { fetchRequests, updateRequest } from "../../../../../API";
+
 import styles from "./style.module.css";
 
 const Cls = () => {
+    const [requests, setRequests] = React.useState([]);
+    const status = {
+        2: "ACCEPTED",
+        3: "REJECTED",
+    }
+
+    React.useEffect(() => {
+        fetchRequests((data) => setRequests(data), (message) => alert(message));
+    },[]);
+
+    const onClick = (requestId, status) => {
+        updateRequest({requestId, status}, (message) =>alert(message), (message) =>alert(message));
+    }
+
     return (
         <div className={styles.main}>
             <div className={styles.contact_box}>
@@ -13,51 +29,34 @@ const Cls = () => {
                             <th>CUSTOMER NAME</th>
                             <th>PHONE NUMBER</th>
                             <th>ADDRESS</th>
-                            <th>STATUS</th>
-                            <th>CLOSE</th>
+                            <th>ACCOUNT NUMBER</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <tr className={styles.active_row}>
-                            <td>1</td>
-                            <td>Mitz</td>
-                            <td>6150576459</td>
-                            <td>182, Avvai Shanmugam Salai, Gopalapuram, Chennai, Tamil Nadu 600086</td>
-                            <td>Requested</td>
-                            <td><button className={styles.btn}>Close</button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Anirudh</td>
-                            <td>9895556784</td>
-                            <td>3rd Main Rd, MKB Nagar, Mahakavi Bharathiyar Nagar Central, Mahakavi Bharathi Nagar, Vyasarpadi, Chennai, Tamil Nadu 600039</td>
-                            <td>Not Requested</td>
-                            <td><button className={styles.btn}>Close</button></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Rajini</td>
-                            <td>7982370065</td>
-                            <td>MIT Rd, Radha Nagar, Chromepet, Chennai, Tamil Nadu 600044</td>
-                            <td>Not Requested</td>
-                            <td><button className={styles.btn}>Close</button></td>
-                        </tr>
-                        <tr className={styles.active_row}>
-                            <td>4</td>
-                            <td>Madhavan</td>
-                            <td>986537890</td>
-                            <td>12, Sardar Patel Rd, Anna University, Guindy, Chennai, Tamil Nadu 600025</td>
-                            <td>Requested</td>
-                            <td><button className={styles.btn}>Close</button></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Arunachalam</td>
-                            <td>6056079034</td>
-                            <td>Estancia IT Park,Vallancherry, Plot No. 140 , 151, Great Southern Trunk Rd, Chengalpattu, Tamil Nadu 603202</td>
-                            <td>Not Requested</td>
-                            <td><button className={styles.btn}>Close</button></td>
-                        </tr>
+                        {
+                            requests.map(
+                                request => 
+                                <tr key={request.id}>
+                                    <td>{request.id}</td>
+                                    <td>{request.accounts.users.name}</td>
+                                    <td>{request.accounts.users.phoneNumber}</td>
+                                    <td>{request.accounts.users.address}</td>
+                                    <td>{request.accounts.accountNumber}</td>
+                                    <td>
+                                        {
+                                            request.status == 2 || request.status == 3 ?
+                                            <p>{status[request.status]}</p>:
+                                            <React.Fragment>
+                                                <button onClick={() => onClick(request.id, 2)} className={styles.btn}>Accept</button>
+                                                <button onClick={() => onClick(request.id, 3)} className={styles.btn}>Reject</button>
+                                            </React.Fragment>
+                                        }
+                                        
+                                    </td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>

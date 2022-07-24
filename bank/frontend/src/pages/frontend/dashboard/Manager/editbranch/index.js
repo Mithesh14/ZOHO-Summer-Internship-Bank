@@ -1,7 +1,26 @@
 import React from 'react'
+import { deleteBranch, fetchBranches } from "../../../../../API";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import styles from "./style.module.css";
 
 const Tran = () => {
+    const [branches, setBranches] = React.useState([]);
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        fetchBranches(branches => setBranches(branches), message => alert(message));
+    }, []);
+
+    const onEdit = (branch) => navigate(`${branch.id}`, { state: { branch } });
+
+    const onDelete = (branchId) => {
+        const data = {id: branchId};
+        deleteBranch(data, (message) => alert(message), (message) => alert(message));
+    }
+
+    // const { state: { branch } } = useLocation();
+
     return (
         <div className={styles.main}>
             <div className={styles.contact_box}>
@@ -12,60 +31,23 @@ const Tran = () => {
                             <th>BRANCH NUMBER</th>
                             <th>BRANCH NAME</th>
                             <th>ADDRESS</th>
-                            <th>NUMBER OF ACCOUNTS</th>
-                            <th>AMOUNT DEPOSITED</th>
-                            <th>LOANS AVAILED</th>
                             <th>EDIT</th>
+                            <th>DELETE</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                            <td>1</td>
-                            <td>Kottur</td>
-                            <td>Co Nr Mehta Pole, Bank Of Baroda Road, Co, Nr Mehta Pole, Mandvi</td>
-                            <td>4659</td>
-                            <td>1379567</td>
-                            <td>96725</td>
-                            <td><button className={styles.btn}>Edit</button></td>
-                        </tr>
-                        <tr className={styles.active_row}>
-                            <td>2</td>
-                            <td>MKB Nagar</td>
-                            <td>Co Nr Mehta Pole, Bank Of Baroda Road, Co, Nr Mehta Pole, Mandvi</td>
-                            <td>9765</td>
-                            <td>102045</td>
-                            <td>379548</td>
-                            <td><button className={styles.btn}>Edit</button></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Chromepet</td>
-                            <td>Co Nr Mehta Pole, Bank Of Baroda Road, Co, Nr Mehta Pole, Mandvi</td>
-                            <td>679</td>
-                            <td>57954</td>
-                            <td>30210</td>
-                            <td><button className={styles.btn}>Edit</button></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Teynampet</td>
-                            <td>Co Nr Mehta Pole, Bank Of Baroda Road, Co, Nr Mehta Pole, Mandvi</td>
-                            <td>976431</td>
-                            <td>13466741</td>
-                            <td>9784512</td>
-                            <td><button className={styles.btn}>Edit</button></td>
-                        </tr>
-                        <tr className={styles.active_row}>
-                            <td>5</td>
-                            <td>Adyar</td>
-                            <td>Co Nr Mehta Pole, Bank Of Baroda Road, Co, Nr Mehta Pole, Mandvi</td>
-                            <td>56784</td>
-                            <td>1234932</td>
-                            <td>123002</td>
-                            <td><button className={styles.btn}>Edit</button></td>
-                        </tr>
-
-
+                        {
+                            branches.map(
+                                branch =>
+                                <tr>
+                                    <td>{branch.id}</td>
+                                    <td>{branch.name}</td>
+                                    <td>{branch.address}</td>
+                                    <td><button className={styles.btn} onClick={() => onEdit(branch)}>Edit</button></td>
+                                    <td><button className={styles.btn} onClick={() => onDelete(branch.id)}>Delete</button></td>
+                                </tr> 
+                            )
+                        }
                     </tbody>
                 </table>
             </div>

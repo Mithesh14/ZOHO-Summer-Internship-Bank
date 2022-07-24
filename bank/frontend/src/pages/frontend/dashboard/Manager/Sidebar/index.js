@@ -40,9 +40,9 @@ const Manager = () => {
                             <p className={styles.btn}>Edit branches</p>
                         </NavLink>
 
-                        <NavLink to="cancelloan" className={activeClass}>
+                        {/* <NavLink to="cancelloan" className={activeClass}>
                             <MdCancel className={styles.ioP} />
-                            <p className={styles.btn}>Cancel loan</p></NavLink>
+                            <p className={styles.btn}>Cancel loan</p></NavLink> */}
 
                         <NavLink to="closeacc" className={activeClass}>
                             <MdPersonRemove className={styles.ioP} />
