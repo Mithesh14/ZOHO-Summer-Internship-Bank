@@ -10,7 +10,6 @@ function Login() {
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-
   const success = (message) => {
     alert(message);
   }

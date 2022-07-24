@@ -32,3 +32,14 @@ export const fetchAccounts = async (success, error) => {
         error(e.response.data.message);
     }
 }
+
+export const depositMoney = async (success, error) => {
+    try {
+        const response = await axios.get("/dashboard/customer/depositMoney");
+        success(response.data);
+    }
+    catch(e) {
+        console.log(e);
+        error(e.response.data.message);
+    }
+}

@@ -225,22 +225,16 @@ exports.closeAccount = async (req, res) => {
 }
 
 exports.transactionTable = async (req, res) => {
-    const transactions = await prisma.transactions.findUnique({where:{id:Number.parseInt(req.body.id)}});
-    
-    if(!transactions) {
-        return res.status(411).json({message: "The requested transaction is not there!"});
-    }
-
     try {
-        await prisma.request.create({
-            data: {
-                accountNumber: Number.parseInt(req.body.accountNumber),
-                date: new Date().toUTCString(),
-                status: 1 //REQUESTED
+        const transactions = await prisma.transactions.findMany({
+            where: {
+                accounts: {
+                    userId: req.user.id
+                }
             }
         });
         
-        return res.status(200).json({ message: "Request sent successfully!" });
+        return res.status(200).json({ transactions });
     }
     catch(e) {
         console.log(e);

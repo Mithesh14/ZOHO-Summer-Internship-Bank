@@ -57,6 +57,7 @@ const Card = (props) => {
                 <div className={styles.card_name}>{ props.account.branch.address }</div>
                 <div className={styles.card_name} ><i>{ accountTypes[props.account.type] }, { activeTypes[props.account.active] }</i></div>
             </div>
+            <button>Close</button>
         </div>
     );
 }
