@@ -42,7 +42,7 @@ const EditPage = () => {
                     <h2 className={styles.h2_cont}>EDIT BRANCH</h2>
                     <input type="text" className={styles.field} placeholder="Branch Name" value={branchName} onChange={onBranchName}></input>
                     <textarea placeholder="Address" className={styles.field} value={branchAddress} onChange={onBranchAddress}></textarea>
-                    <button className={styles.btn}>Add branch</button>
+                    <button className={styles.btn}>Edit branch</button>
                 </form>
             </div>
         </div>

@@ -24,11 +24,11 @@ const Accounts = () => {
 
     return (
         <div className={styles.main}>
-             <h2>Other Accounts:</h2>
+             <h2 className={styles.h2_cont}>SAVINGS AND BUSINESS ACCOUNTS</h2>
             <div className={styles.cards}>
                 { accounts.map(account => <Card account={account}/>) }
             </div>
-            <h2>Loan Accounts:</h2>
+            <h2 className={styles.h2_cont}>LOAN ACCOUNTS</h2>
             <div className={styles.cards}>
                { loans.map(account => <Card account={account}/>) }
            </div>
@@ -60,8 +60,8 @@ const Card = (props) => {
                 <div className={styles.card_name} >BRANCH ID : { props.account.branchId }</div>
                 <div className={styles.card_name}>{ props.account.branch.address }</div>
                 <div className={styles.card_name} ><i>{ accountTypes[props.account.type] }, { activeTypes[props.account.active] }</i></div>
+                {props.account.active == 1 && <button className={styles.btn} onClick={onClose}>Close</button>}
             </div>
-            <button onClick={onClose}>Close</button>
         </div>
     );
 }

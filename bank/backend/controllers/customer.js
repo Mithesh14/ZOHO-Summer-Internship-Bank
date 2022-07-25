@@ -208,6 +208,8 @@ exports.closeAccount = async (req, res) => {
         return res.status(411).json({message: "The requested account is not there!"});
     }
 
+
+
     try {
         await prisma.request.create({
             data: {

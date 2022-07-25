@@ -100,6 +100,7 @@ export const createAccount = async (data, success, error) => {
     }
 }
 
+
 export const closeAccount = async (data, success, error) => {
     try {
         const response = await axios.post("/dashboard/customer/closeAccount", data);

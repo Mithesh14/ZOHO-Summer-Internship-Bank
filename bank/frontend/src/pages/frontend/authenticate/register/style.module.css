@@ -93,6 +93,21 @@
     margin-top: 20px;
 }
 
+.field {
+    width: 100%;
+    border: 2px solid rgba(0, 0, 0, 0);
+    outline: none;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 22px;
+    transition: .3s;
+}
+
+.field:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .register_form .action {
     display: flex;
     -webkit-box-orient: horizontal;

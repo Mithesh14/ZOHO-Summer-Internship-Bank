@@ -50,12 +50,12 @@ exports.deleteBranch = async (req, res) => {
         return res.status(401).json({ message: "Credentials cannot be empty"});
     }
 
-    if(req.body.id === "11"){
+    if(req.body.id === 11){
         return res.status(401).json({ message: "Main branch can't be deleted!!"});
     }
 
     try {
-        await prisma.$executeRaw`UPDATE accounts SET branchId = ${11} WHERE branchId = ${Number.parseInt(req.body.id)};`;
+        await prisma.$executeRaw`UPDATE accounts SET branchId = 11 WHERE branchId = ${Number.parseInt(req.body.id)};`;
 
         await prisma.branch.delete({
             where: {

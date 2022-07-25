@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 import styles from "./style.module.css";
 import { MdOutlineAccountCircle, MdAlternateEmail, MdOutlineHistory, MdOutlineLogout } from 'react-icons/md';
-import { GiPayMoney, GiReceiveMoney, GiTakeMyMoney } from 'react-icons/gi';
+import { GiPayMoney, GiReceiveMoney, GiTakeMyMoney}  from 'react-icons/gi';
 import { IoCreateSharp } from 'react-icons/io5';
 
 const activeClass = ({ isActive }) => isActive ? styles.active + " " + styles.link : styles.link;
@@ -42,7 +42,7 @@ const Customer = () => {
                         </NavLink>
 
                         <NavLink to="withdrawal" className={activeClass}>
-                            <GiPayMoney className={styles.ioP} />
+                            <GiReceiveMoney className={styles.ioP} />
                             <p className={styles.btn}>Withdraw money</p>
                         </NavLink>
 {/* 
@@ -60,6 +60,7 @@ const Customer = () => {
                             <IoCreateSharp className={styles.ioP} />
                             <p className={styles.btn}>Create Account</p>
                         </NavLink>
+
                     </div>
                 </div>
                 <div>
