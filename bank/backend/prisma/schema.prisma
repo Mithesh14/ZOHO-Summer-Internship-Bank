@@ -29,18 +29,22 @@ model branch {
   name     String     @db.VarChar(50)
   address  String     @db.VarChar(150)
   accounts accounts[]
+  loan     loan[]
 }
 
 model loan {
-  id     Int    @id @unique(map: "id_UNIQUE") @default(autoincrement())
-  type   String @db.VarChar(45)
-  amount String @db.VarChar(10)
-  userId Int
-  status Int
-  period Int
-  users  users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_loan_user")
+  id       Int    @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  type     Int
+  amount   Int
+  userId   Int
+  status   Int
+  period   Int
+  branchId Int
+  branch   branch @relation(fields: [branchId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_loan_branch")
+  users    users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_loan_user")
 
   @@index([userId], map: "fk_loan_user_idx")
+  @@index([branchId], map: "fk_loan_branch_idx")
 }
 
 model transactions {

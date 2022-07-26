@@ -1,4 +1,5 @@
 const prisma = require("../utils/prisma");
+const { accounts } = require("./customer");
 
 exports.addBranch = async (req, res) => {
     if(req.body.name === "" || req.body.address === ""){
@@ -143,18 +144,22 @@ exports.viewRequests = async (req, res) => {
 }
 
 exports.updateRequest = async (req, res) => {
+
     console.log(req.body);
     if(req.body.requestId == "" || req.body.status == ""){
         return res.status(401).json({ message: "Credentials cannot be empty" });
     }
 
+    const account = await prisma.accounts.findMany();
+
     if(req.body.status !== 2 && req.body.status !== 3){
         return res.status(401).json({ message: "Status can be 2 or 3" });
     }
 
-    // if(req.accounts.active == "2"){
-    //     return res.status(401).json({ message: "The account is already closed!" });
-    // }
+    if(account.type === 3){
+        return res.status(411).json({message: "The loan account can't be closed in this way!"});
+    }
+
 
     try {
         const request = await prisma.request.findUnique({
@@ -172,8 +177,10 @@ exports.updateRequest = async (req, res) => {
             return res.status(401).json({ message: "Request does not exist" });
 
         if(request.accounts.active === 0)
-        return res.status(401).json({ message: "Account is already closed" });
-            
+            return res.status(401).json({ message: "Account is already closed" });
+        
+        console.log();
+
         if(Number.parseInt(req.body.status) === 2) {
             await prisma.accounts.update({
                 where: {
@@ -188,6 +195,17 @@ exports.updateRequest = async (req, res) => {
             });
         }
 
+        if(Number.parseInt(req.body.status) === 3) {
+            await prisma.accounts.update({
+                where: {
+                    accountNumber: request.accountNumber  
+                },
+                data: {
+                    active: 1
+                }
+            });
+        }
+
         await prisma.request.update({
             where: {
                 id: request.id,
@@ -196,6 +214,98 @@ exports.updateRequest = async (req, res) => {
                 status: Number.parseInt(req.body.status),
             }
         });
+
+        return res.status(401).json({ message: "Operation success"});
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+exports.viewLoanRequests = async (req, res) => {
+    try {
+        const loans = await prisma.loan.findMany({
+            select: {
+                id: true,
+                status: true,
+                amount: true,
+                type: true,
+                period: true,
+                users: {
+                    select: {
+                        id: true,
+                        name: true,
+                    }
+                }
+            }
+        });
+        return res.status(200).json({ loans });
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+
+exports.updateLoanRequests = async (req, res) => {
+    try {
+        const loan = await prisma.loan.findUnique({
+            where:{
+                id: Number.parseInt(req.body.requestId)
+            },
+            include: {
+                users: true
+            }
+        });
+
+        if(!loan)
+            return res.status(401).json({ message: "Request does not exist" });
+
+
+        if(loan.status === 1){
+            return res.status(401).json({ message: "The request is already approved" });            
+        }
+
+        var interest;
+
+        switch(loan.type){
+            case 0 : interest = 8
+            case 1 : interest = 9
+            case 2 : interest = 13
+        }
+
+        if(Number.parseInt(req.body.status) === 1) {
+            await prisma.accounts.create({
+                data: {
+                    type: 3,
+                    balance: Number.parseInt(loan.amount),
+                    interest: Number.parseInt(interest),
+                    branchId: Number.parseInt(loan.branchId),
+                    userId: req.user.id,
+                    active: 1
+                }
+            
+            });
+            
+            await prisma.loan.update({
+                data: {
+                    status: 1,
+                },
+                where:{
+                    id : loan.id
+                }
+            });
+        }
+
+        if(Number.parseInt(req.body.status) === 2) {
+            await prisma.loan.delete({
+                where: {
+                    id: loan.id,
+                }
+            });
+        }
 
         return res.status(401).json({ message: "Operation success"});
     }

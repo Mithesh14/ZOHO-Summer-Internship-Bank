@@ -1,11 +1,12 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { users } = require("../utils/prisma");
 
 const prisma = require("../utils/prisma");
 
 exports.user = async (req, res) => {
     return res.status(200).json({
-        users: {
+        user: {
             id: req.user.id,
             name: req.user.name,
             address: req.user.address,
@@ -78,7 +79,7 @@ exports.register = async (req, res) => {
             return res.status(411).json({message: "Password length should be greater than 5 letters"});
 
         if(req.body.role !== "1" && req.body.role !== "0")
-            return res.status(411).json({message: "role should be either 1 or 0"});
+            return res.status(411).json({message: "Role should be either 1 or 0"});
 
         if(req.body.phoneNumber.length !== 10 )
             return res.status(411).json({message: "Phone number should be 10 digits "});
@@ -126,4 +127,3 @@ exports.resetPassword = async (req, res, next) => {
         res.status(500).json({message:"Internal server error"});
     }
 }
-

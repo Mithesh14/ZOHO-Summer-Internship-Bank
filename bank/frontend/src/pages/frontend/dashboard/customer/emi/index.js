@@ -18,6 +18,7 @@ const emi = () => {
                     <th>TOTAL INTEREST PAYABLE</th>
                     <th>TOTAL PAYMENT (PRINCIPAL + INTEREST)</th>
                     <th>STATUS</th>
+                    <td>ACTIONS</td>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@ const emi = () => {
                     <td>9,453</td>
                     <td>2,59,453</td>
                     <td>Paid</td>
+                    <td><button className={styles.btn}>PAY</button></td>
                 </tr>
                 <tr className={styles.active_row}>
                     <td>2</td>
@@ -34,6 +36,7 @@ const emi = () => {
                     <td>9,453</td>
                     <td>2,59,453</td>
                     <td>Paid</td>
+                    <td><button className={styles.btn}>PAY</button></td>
                 </tr>
                 <tr className={styles.active_row}>
                     <td>3</td>
@@ -41,6 +44,7 @@ const emi = () => {
                     <td>9,453</td>
                     <td>2,59,453</td>
                     <td>Paid</td>
+                    <td><button className={styles.btn}>PAY</button></td>
                 </tr>
 
                 <tr>
@@ -49,6 +53,7 @@ const emi = () => {
                     <td>9,453</td>
                     <td>2,59,453</td>
                     <td>Not Paid</td>
+                    <td><button className={styles.btn}>PAY</button></td>
                 </tr>
 
 
@@ -58,6 +63,7 @@ const emi = () => {
                     <td>9,453</td>
                     <td>2,59,453</td>
                     <td>Not Paid</td>
+                    <td><button className={styles.btn}>PAY</button></td>
                 </tr>
 
 

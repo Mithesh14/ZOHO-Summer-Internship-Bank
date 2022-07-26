@@ -18,17 +18,17 @@
     top: 2rem;
     justify-content: center;
     align-items: center;
-    padding: 20px 100px;
+    padding: 70px 320px;
 }
 
 .contact_box {
-    max-width: 40rem;
+    max-width: 50rem;
     justify-content: center;
     align-items: center;
     text-align: center;
     background-color: #fff;
     box-shadow: 0px 0px 19px 5px rgba(0, 0, 0, 0.19);
-    padding: 60px 40px;
+    padding: 75px 75px;
 }
 
 

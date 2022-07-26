@@ -1,0 +1,2 @@
+terminate other session if exists
+if cookies is stolen, do the necessary step

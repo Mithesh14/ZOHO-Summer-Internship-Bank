@@ -22,6 +22,17 @@ export const login = async (data, success, error) => {
     }
 }
 
+export const logout = async (success, error) => {
+    try {
+        const response = await axios.get("/authentication/logout");
+        success("Logout successfull", response.data.user);
+    }
+
+    catch(e) {
+        error(e.response.data.message);
+    }
+}
+
 export const fetchAccounts = async (success, error) => {
     try {
         const response = await axios.get("/dashboard/customer/accounts");
@@ -112,6 +123,15 @@ export const closeAccount = async (data, success, error) => {
     }
 }
 
+export const fetchUser = async (onSuccess, onError) => {
+    try {
+        const response  = await axios.get("/authentication/user");
+        onSuccess("User loaded successfully", response.data.user);
+    }
+    catch(e) {
+        onError("Unable to process request. Try again");
+    }
+}
 
 export const fetchRequests = async (success, error) => {
     try {

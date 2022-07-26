@@ -102,7 +102,7 @@ function Register() {
 
             <div className={styles.input_field}>
               <select className={styles.field} value={role}  onChange={(e) => setRole(e.target.value)}>
-                  <option className={styles.field} value="" selected disabled>Select user type</option>
+                  <option className={styles.field_option} value="" selected disabled>Select user type</option>
                   { userTypes.map(userType => <option className={styles.field} value={userType.value}>{userType.label}</option>) }
               </select>
               <GiCharacter className={styles.iop} />

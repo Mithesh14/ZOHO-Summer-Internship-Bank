@@ -1,4 +1,4 @@
-const { branch } = require("../utils/prisma");
+const { branch, loan } = require("../utils/prisma");
 const prisma = require("../utils/prisma");
 
 exports.addAccount = async (req, res) => {
@@ -6,7 +6,8 @@ exports.addAccount = async (req, res) => {
         return res.status(401).json({ message: "Credentials cannot be empty"});
     }
 
-    if(Number.parseInt(req.body.balance) < 1000){
+
+    if(req.body.accountType === "1" | req.body.accountType === "2" & Number.parseInt(req.body.balance) < 1000){
         return res.status(411).json({message: "Balance should be greater than 1000"});
     }
 
@@ -87,6 +88,10 @@ exports.depositMoney = async (req, res) => {
 
     if(!account) {
         return res.status(411).json({message: "The requested account is not there!"});    
+    }
+
+    if(account.active === "0") {
+        return res.status(411).json({message: "The account must not be closed."});    
     }
 
     try {
@@ -208,9 +213,23 @@ exports.closeAccount = async (req, res) => {
         return res.status(411).json({message: "The requested account is not there!"});
     }
 
-
+    if(account.type === 3){
+        return res.status(411).json({message: "The loan account can't be closed in this way!"});
+    }
 
     try {
+        await prisma.accounts.update({
+            where:{
+                accountNumber: Number.parseInt(req.body.accountNumber),
+                
+
+            },
+
+            data:{
+                active: 2
+            }
+        });
+
         await prisma.request.create({
             data: {
                 accountNumber: Number.parseInt(req.body.accountNumber),
@@ -234,6 +253,9 @@ exports.transactionTable = async (req, res) => {
                 accounts: {
                     userId: req.user.id
                 }
+            },
+            orderBy: {
+                id: "asc"
             }
         });
         
@@ -262,3 +284,62 @@ exports.fetchBranch = async (req, res) => {
 }
 
 
+exports.replaymetemi = async (req, res) => {
+
+    const loan = await prisma.loan.findFirst({where:{userId:req.user.id}});
+
+    try {
+        await prisma.loan.create({
+            data: {
+                type: Number.parseInt(req.body.type),
+                amount: - (Number.parseInt(req.body.amount)),
+                branchId :Number.parseInt(req.body.branchId),
+                status: 0,
+                userId : req.user.id,
+                period: Number.parseInt(req.body.period)
+            }
+        });
+        
+        return res.status(200).json({ message: "Loan Request sent successfully!" });
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+exports.applyLoan = async (req, res) => {
+
+    if(req.body.amount > 3000000){
+        return res.status(411).json({message: "The requesting amount should be lesser than 3000000"});
+    }
+
+    const loan = await prisma.loan.findFirst({where:{userId:req.user.id}});
+
+    if(loan){
+        return res.status(401).json({ message: "A loan request is already pending" });            
+    }
+
+    if(req.body.status===1){
+        return res.status(401).json({ message: "The request is already approved by the manager!" });            
+    }
+
+    try {
+        await prisma.loan.create({
+            data: {
+                type: Number.parseInt(req.body.type),
+                amount: - (Number.parseInt(req.body.amount)),
+                branchId :Number.parseInt(req.body.branchId),
+                status: 0,
+                userId : req.user.id,
+                period: Number.parseInt(req.body.period)
+            }
+        });
+        
+        return res.status(200).json({ message: "Loan Request sent successfully!" });
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}

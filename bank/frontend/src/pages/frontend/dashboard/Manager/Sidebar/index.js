@@ -2,12 +2,27 @@ import React from "react";
 import { NavLink, Outlet } from 'react-router-dom';
 
 import styles from "./style.module.css";
+
+import { logout } from "../../../../../API"
 import { MdOutlineAddBox, MdEditNote, MdCancel, MdOutlineLogout, MdPersonRemove } from 'react-icons/md';
 import { TbReportAnalytics } from 'react-icons/tb';
 
 const activeClass = ({ isActive }) => isActive ? styles.active + " " + styles.link : styles.link;
 
 const Manager = () => {
+    const success = (message) => {
+        alert(message);
+        window.location.reload();
+      }
+    
+      const error = (message) => {
+        alert(message);
+      }
+
+      const onSubmit = (e) => {
+        e.preventDefault();
+        logout(success, error);
+      }
     return (
         <>
             <div className={styles.container}>
@@ -19,7 +34,7 @@ const Manager = () => {
 
                     </div>
                     <a href="../../authentication/Login">
-                    <MdOutlineLogout className={styles.out} NavLink="Login"/>
+                    <MdOutlineLogout onClick={onSubmit} className={styles.out} NavLink="Login"/>
                     </a>
                     
                 </div>
@@ -40,9 +55,9 @@ const Manager = () => {
                             <p className={styles.btn}>Edit branches</p>
                         </NavLink>
 
-                        {/* <NavLink to="cancelloan" className={activeClass}>
+                        <NavLink to="loanrequest" className={activeClass}>
                             <MdCancel className={styles.ioP} />
-                            <p className={styles.btn}>Cancel loan</p></NavLink> */}
+                            <p className={styles.btn}>Loan Requests</p></NavLink>
 
                         <NavLink to="closeacc" className={activeClass}>
                             <MdPersonRemove className={styles.ioP} />

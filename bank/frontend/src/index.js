@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import axios from "axios";
 import reportWebVitals from './reportWebVitals';
+import AuthenticationProvider, {AuthenticationContext} from './providers/authentication'
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL="http://localhost:8080";
@@ -11,7 +12,9 @@ axios.defaults.baseURL="http://localhost:8080";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthenticationProvider>
+      <App />
+    </AuthenticationProvider>
   </React.StrictMode>
 );
 

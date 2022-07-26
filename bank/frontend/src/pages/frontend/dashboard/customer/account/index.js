@@ -46,6 +46,7 @@ const Card = (props) => {
     const activeTypes = {
         0: "Closed",
         1: "Active",
+        2: "Requested"
     }
 
     const onClose = () => {
@@ -60,7 +61,8 @@ const Card = (props) => {
                 <div className={styles.card_name} >BRANCH ID : { props.account.branchId }</div>
                 <div className={styles.card_name}>{ props.account.branch.address }</div>
                 <div className={styles.card_name} ><i>{ accountTypes[props.account.type] }, { activeTypes[props.account.active] }</i></div>
-                {props.account.active == 1 && <button className={styles.btn} onClick={onClose}>Close</button>}
+                {props.account.active == 1 && props.account.type != 3 && <button className={styles.btn} onClick={onClose}>Close</button>}
+                {props.account.active == 2 }
             </div>
         </div>
     );

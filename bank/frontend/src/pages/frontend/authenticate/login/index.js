@@ -1,17 +1,21 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, Navigate,useNavigate } from 'react-router-dom';
 import { MdPassword, MdContactPhone } from 'react-icons/md';
 import { login } from "../../../../API"
-
+import {AuthenticationContext } from "../../../../providers/authentication";
 import styles from "./style.module.css";
 import log from "../../../../assests/img/bank.svg";
 
 function Login() {
+  const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [showpassword, setshowPassword] = React.useState("");
+  const [state, setState] = React.useContext(AuthenticationContext);
 
   const success = (message) => {
     alert(message);
+    window.location.reload();
   }
 
   const error = (message) => {
@@ -28,6 +32,9 @@ function Login() {
 
     login(data, success, error);
   }
+
+  if(state.status) 
+        return <Navigate to="/dashboard" replace/>
 
   return (
     <div className={styles.wrapper}>
@@ -54,6 +61,16 @@ function Login() {
               />
               <MdPassword className={styles.ioP} />
             </div>
+
+            <div className={styles.input_field}>
+              <input 
+                type="checkbox" 
+                placeholder="Show password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
           </div>
           <div className={styles.action}>
             <Link to="/authentication/SignUp" className={styles.btn} style={{ textDecoration: 'none', textAlign: "center" }}>Sign up</Link>
