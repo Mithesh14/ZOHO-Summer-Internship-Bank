@@ -187,3 +187,59 @@ export const updateRequest = async (data, success, error) => {
         error(e.response.data.message);
     }
 }
+
+export const applyLoan = async (data, success, error) => {
+    try {
+        const response = await axios.post("/dashboard/customer/applyLoan", data);
+        success(response.data.message);
+    }
+    catch(e) {
+        console.log(e);
+        error(e.response.data.message);
+    }
+}
+
+export const viewLoanRequests = async (success, error) => {
+    try {
+        const response = await axios.get("/dashboard/manager/viewLoanRequests");
+        console.log(response.data.loans);
+        success(response.data.loans);
+    }
+    catch(e) {
+        console.log(e);
+        error(e.response.data.message);
+    }
+}
+
+export const updateLoanRequests = async (data, success, error) => {
+    try {
+        const response = await axios.post("/dashboard/manager/updateLoanRequests", data);
+        success(response.data.message);
+    }
+    catch(e) {
+        console.log(e);
+        error(e.response.data.message);
+    }
+}
+
+export const fetchLoan = async (success, error) => {
+    try {
+        const response = await axios.get("/dashboard/customer/fetchLoan");
+        success(response.data.loan);
+    }
+    catch(e) {
+        console.log(e);
+        error(e.response.data.message);
+    }
+}
+
+export const resetPassword = async (data, success, error) => {
+    try {
+        const response = await axios.post("/authentication/resetPassword", data);
+        success(response.data.message);
+    }
+    catch(e) {
+        console.log(e);
+        error(e.response.data.message);
+    }
+}

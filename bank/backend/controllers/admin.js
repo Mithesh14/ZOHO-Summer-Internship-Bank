@@ -232,12 +232,7 @@ exports.viewLoanRequests = async (req, res) => {
                 amount: true,
                 type: true,
                 period: true,
-                users: {
-                    select: {
-                        id: true,
-                        name: true,
-                    }
-                }
+                users: true
             }
         });
         return res.status(200).json({ loans });
@@ -253,7 +248,7 @@ exports.updateLoanRequests = async (req, res) => {
     try {
         const loan = await prisma.loan.findUnique({
             where:{
-                id: Number.parseInt(req.body.requestId)
+                id: Number.parseInt(req.body.loanId)
             },
             include: {
                 users: true
@@ -272,18 +267,25 @@ exports.updateLoanRequests = async (req, res) => {
 
         switch(loan.type){
             case 0 : interest = 8
+            break;
             case 1 : interest = 9
+            break;
             case 2 : interest = 13
         }
 
+        if(Number.parseInt(loan.amount) > 3000000){
+            return res.status(401).json({ message: "The loan request should not exceed 3000000" });            
+        }
+
         if(Number.parseInt(req.body.status) === 1) {
+
             await prisma.accounts.create({
                 data: {
                     type: 3,
                     balance: Number.parseInt(loan.amount),
                     interest: Number.parseInt(interest),
                     branchId: Number.parseInt(loan.branchId),
-                    userId: req.user.id,
+                    userId: Number.parseInt(loan.userId),
                     active: 1
                 }
             
@@ -296,14 +298,19 @@ exports.updateLoanRequests = async (req, res) => {
                 where:{
                     id : loan.id
                 }
+
             });
         }
 
         if(Number.parseInt(req.body.status) === 2) {
-            await prisma.loan.delete({
+            await prisma.loan.update({
                 where: {
                     id: loan.id,
+                },
+                data: {
+                    status:2,
                 }
+                
             });
         }
 
@@ -314,3 +321,4 @@ exports.updateLoanRequests = async (req, res) => {
         res.status(500).json({message:"Internal server error"});
     }
 }
+

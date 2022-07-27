@@ -36,7 +36,7 @@ model loan {
   id       Int    @id @unique(map: "id_UNIQUE") @default(autoincrement())
   type     Int
   amount   Int
-  userId   Int
+  userId   Int    @unique(map: "userId_UNIQUE")
   status   Int
   period   Int
   branchId Int
@@ -67,7 +67,7 @@ model users {
   address     String     @db.VarChar(150)
   role        String     @db.Char(1)
   accounts    accounts[]
-  loan        loan[]
+  loan        loan?
 }
 
 model request {

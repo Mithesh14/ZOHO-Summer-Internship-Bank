@@ -71,12 +71,13 @@ textarea {
 }
 
 .btn {
-    width: 100%;
+    width: 40%;
     padding: 1rem 1rem;
     background-color: #00264D;
     color: #fff;
     font-size: 1.1rem;
     border: none;
+    border-radius: 2rem;
     outline: none;
     cursor: pointer;
     transition: .3s;

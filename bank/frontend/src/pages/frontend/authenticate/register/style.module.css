@@ -47,6 +47,15 @@
     align-items: center;
 }
 
+.register_form .input_field_check {
+    display: flex;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 0.2rem;
+    margin-bottom: 1rem;
+  }
+
 .register_form .input_field input {
     font-size: 16px;
     display: block;
@@ -103,6 +112,19 @@
     padding: 0.5rem 1rem;
     font-size: 1.1rem;
     margin-bottom: 22px;
+    transition: .3s;
+}
+
+.field_drop {
+    width: 70%;
+    border: 2px solid rgba(0, 0, 0, 0);
+    outline: none;
+    background-color: rgba(60, 60, 60, 0.155);
+    padding: 1rem 1rem;
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2px;
     transition: .3s;
 }
 

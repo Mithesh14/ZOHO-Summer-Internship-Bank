@@ -120,7 +120,7 @@ exports.resetPassword = async (req, res, next) => {
 
         res.clearCookie("token", {maxAge: 0});
 
-        return res.status(200).json({data: {message: "Password is changed !"}});
+        return res.status(200).json({message: "Password is changed !"});
     }
     catch(e) {
         console.log(e);

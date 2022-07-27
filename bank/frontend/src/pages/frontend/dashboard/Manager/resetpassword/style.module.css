@@ -16,9 +16,10 @@
     width: 100%;
     height: 100%;
     top: 2rem;
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 70px 320px;
+    padding: 20px 100px;
 }
 
 .contact_box {
@@ -70,12 +71,12 @@ textarea {
 }
 
 .btn {
-    width: 50%;
+    width: 60%;
     padding: 1rem 1rem;
+    border-radius: 2rem;
     background-color: #00264D;
     color: #fff;
     font-size: 1.1rem;
-    border-radius: 2rem;
     border: none;
     outline: none;
     cursor: pointer;

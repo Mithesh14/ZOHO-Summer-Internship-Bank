@@ -284,29 +284,7 @@ exports.fetchBranch = async (req, res) => {
 }
 
 
-exports.replaymetemi = async (req, res) => {
 
-    const loan = await prisma.loan.findFirst({where:{userId:req.user.id}});
-
-    try {
-        await prisma.loan.create({
-            data: {
-                type: Number.parseInt(req.body.type),
-                amount: - (Number.parseInt(req.body.amount)),
-                branchId :Number.parseInt(req.body.branchId),
-                status: 0,
-                userId : req.user.id,
-                period: Number.parseInt(req.body.period)
-            }
-        });
-        
-        return res.status(200).json({ message: "Loan Request sent successfully!" });
-    }
-    catch(e) {
-        console.log(e);
-        res.status(500).json({message:"Internal server error"});
-    }
-}
 
 exports.applyLoan = async (req, res) => {
 
@@ -324,19 +302,36 @@ exports.applyLoan = async (req, res) => {
         return res.status(401).json({ message: "The request is already approved by the manager!" });            
     }
 
+    console.log(req.body);
     try {
         await prisma.loan.create({
             data: {
-                type: Number.parseInt(req.body.type),
-                amount: - (Number.parseInt(req.body.amount)),
-                branchId :Number.parseInt(req.body.branchId),
+                type: Number.parseInt(req.body.loantype),
+                amount: Number.parseInt(req.body.loanamount),
+                branchId :Number.parseInt(req.body.loanbranch),
                 status: 0,
                 userId : req.user.id,
-                period: Number.parseInt(req.body.period)
+                period: Number.parseInt(req.body.loantenure)
             }
         });
         
         return res.status(200).json({ message: "Loan Request sent successfully!" });
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+exports.fetchLoan = async (req, res) => {
+    try {
+        const loan = await prisma.loan.findUnique({
+            where: {
+                userId: req.user.id
+            }
+        });
+    
+        return res.status(200).json({ loan });
     }
     catch(e) {
         console.log(e);

@@ -19,9 +19,16 @@
 }
 
 .logo h2 {
-    color: #00264D;
+    font-size: 1.5rem;
+    float: right;
+    text-transform: uppercase;
 }
 
+.logo h3 {
+    color: #00264D;
+    font-size: 1rem;
+    float: left;
+}
 
 .user {
     position: relative;

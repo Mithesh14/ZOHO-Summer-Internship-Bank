@@ -43,8 +43,8 @@ const Tran = () => {
                                     <td>{branch.id}</td>
                                     <td>{branch.name}</td>
                                     <td>{branch.address}</td>
-                                    <td><button className={styles.btn} onClick={() => onEdit(branch)}>Edit</button></td>
-                                    <td><button className={styles.btn} onClick={() => onDelete(branch.id)}>Delete</button></td>
+                                    <td><button className={styles.btn_one} onClick={() => onEdit(branch)}>Edit</button></td>
+                                    <td><button className={styles.btn_two} onClick={() => onDelete(branch.id)}>Delete</button></td>
                                 </tr> 
                             )
                         }

@@ -10,8 +10,9 @@ function Login() {
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [showpassword, setshowPassword] = React.useState("");
+  const [showpassword, setshowPassword] = React.useState(false);
   const [state, setState] = React.useContext(AuthenticationContext);
+  
 
   const success = (message) => {
     alert(message);
@@ -54,7 +55,7 @@ function Login() {
 
             <div className={styles.input_field}>
               <input 
-                type="password" 
+                type={showpassword?"text":"password"} 
                 placeholder="Password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -62,12 +63,11 @@ function Login() {
               <MdPassword className={styles.ioP} />
             </div>
 
-            <div className={styles.input_field}>
+            <div className={styles.input_field_check}>Show password&nbsp;&nbsp;&nbsp;
               <input 
                 type="checkbox" 
-                placeholder="Show password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Show password"
+                onChange={(e) => setshowPassword(!showpassword)}
               />
             </div>
 

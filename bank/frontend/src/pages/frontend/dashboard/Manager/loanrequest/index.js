@@ -1,7 +1,23 @@
 import React from 'react'
 import styles from "./style.module.css";
+import { viewLoanRequests, updateLoanRequests } from "../../../../../API"
 
-const loanreq = () => {
+const Loanreq = () => {
+    const [loanrequests, setLoanRequests] = React.useState([]);
+    const status = {
+        1: "ACCEPTED",
+        2: "REJECTED",
+    }
+
+    React.useEffect(() => {
+        viewLoanRequests((data) => setLoanRequests(data), (message) => alert(message));
+    },[]);
+
+    const onClick = (loanId, status) => {
+        updateLoanRequests({loanId, status}, (message) =>alert(message), (message) =>alert(message));
+    }
+    
+
   return (
     <div className={styles.main}>
     <div className={styles.contact_box}>
@@ -11,20 +27,34 @@ const loanreq = () => {
                 <tr>
                     <th>CUSTOMER ID</th>
                     <th>CUSTOMER NAME</th>
-                    <th>ACCOUNT NUMBER</th>
                     <th>AMOUNT</th>
                     <th>PERIOD</th>
                     <th>ACTION</th>
                 </tr>
             </thead>
             <tbody>
-                <td>5</td>
-                <td>Anirudh</td>
-                <td>10000</td>
-                <td>15000</td>
-                <td>15</td>
-                <button className={styles.btn}>Accept</button>
-                <button className={styles.btn}>Reject</button>
+            {
+                loanrequests.map(
+                                loan => 
+                                <tr key={loan.id}>
+                                    <td>{loan.id}</td>
+                                    <td>{loan.users.name}</td>
+                                    <td>{loan.amount}</td>
+                                    <td>{loan.period}</td>
+                                    <td>
+                                        {
+                                            loan.status === 1 || loan.status === 2 ?
+                                            <p>{status[loan.status]}</p>:
+                                            <React.Fragment>
+                                                <button onClick={() => onClick(loan.id, 1)} className={styles.btn}>Accept</button>
+                                                <button onClick={() => onClick(loan.id, 2)} className={styles.btn}>Reject</button>
+                                            </React.Fragment>
+                                        }
+                                        
+                                    </td>
+                                </tr>
+                            )
+                        }
             </tbody>
         </table>
             </div>
@@ -33,4 +63,4 @@ const loanreq = () => {
 }
 
 
-export default loanreq
+export default Loanreq

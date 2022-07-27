@@ -5,6 +5,7 @@ import { MdPassword, MdContactPhone } from 'react-icons/md';
 import { ImAddressBook } from 'react-icons/im';
 import { GiCharacter } from 'react-icons/gi'; 
 import { register } from "../../../../API";
+import {AuthenticationContext } from "../../../../providers/authentication";
 
 import styles from "./style.module.css";
 import reg from "../../../../assests/img/bank.svg";
@@ -15,6 +16,8 @@ function Register() {
   const [address, setAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [role, setRole] = React.useState("");
+  
+  const [showpassword, setshowPassword] = React.useState(false);
 
   const userTypes = [
     {label: "Customer", value: 0},
@@ -74,6 +77,14 @@ function Register() {
               <MdPassword className={styles.iop} />
             </div>
 
+            <div className={styles.input_field_check}>Show password&nbsp;&nbsp;&nbsp;
+              <input 
+                type="checkbox" 
+                placeholder="Show password"
+                onChange={(e) => setshowPassword(!showpassword)}
+              />
+            </div>
+
             <div className={styles.input_field}>
               <input
                 type="text"
@@ -101,9 +112,9 @@ function Register() {
             </div>
 
             <div className={styles.input_field}>
-              <select className={styles.field} value={role}  onChange={(e) => setRole(e.target.value)}>
+              <select className={styles.field_drop} value={role}  onChange={(e) => setRole(e.target.value)}>
                   <option className={styles.field_option} value="" selected disabled>Select user type</option>
-                  { userTypes.map(userType => <option className={styles.field} value={userType.value}>{userType.label}</option>) }
+                  { userTypes.map(userType => <option className={styles.field_drop} value={userType.value}>{userType.label}</option>) }
               </select>
               <GiCharacter className={styles.iop} />
             </div>

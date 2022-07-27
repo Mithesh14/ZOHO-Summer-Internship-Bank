@@ -71,10 +71,11 @@ textarea {
 }
 
 .btn {
-    width: 100%;
+    width: 40%;
     padding: 0.5rem 1rem;
     background-color: #00264D;
     color: #fff;
+    border-radius: 2rem;
     font-size: 1.1rem;
     border: none;
     outline: none;

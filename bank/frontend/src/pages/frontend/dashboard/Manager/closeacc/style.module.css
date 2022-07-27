@@ -73,7 +73,7 @@
 }
 
 .btn {
-    width: 100%;
+    width: 40%;
     border: none;
     padding: 18px;
     font-family: 'Rubik', sans-serif;
@@ -81,8 +81,7 @@
     text-transform: uppercase;
     background: #0D47A1;
     color: #fff;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 0;
+    border-radius: 2rem;
     letter-spacing: 0.2px;
     outline: 0;
     -webkit-transition: all .3s;
