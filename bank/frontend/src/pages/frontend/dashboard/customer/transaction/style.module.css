@@ -50,6 +50,12 @@
     font-weight: bold;
 }
 
+.content_table th, td {
+    border-left: 1px solid #eee;
+    border-collapse: collapse;
+  }
+
+  
 .content_table th,
 .content_table td {
     padding: 12px 15px;

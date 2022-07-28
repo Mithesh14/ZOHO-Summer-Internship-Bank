@@ -36,9 +36,9 @@ const Rep = () => {
                                 <tr>
                                     <td>{branch.id}</td>
                                     <td>{branch.name}</td>
-                                    <td>{data.report[branch.id]?.accounts}</td>
-                                    <td>{data.report[branch.id]?.amounts}</td>
-                                    <td>{data.report[branch.id]?.loans}</td>
+                                    <td>{data.report[branch.id].accounts}</td>
+                                    <td>{data.report[branch.id].amounts}</td>
+                                    <td>{data.report[branch.id].loans}</td>
                                 </tr>
                             ) 
                         }

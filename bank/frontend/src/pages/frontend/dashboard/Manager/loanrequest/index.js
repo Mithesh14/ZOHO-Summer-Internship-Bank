@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from "./style.module.css";
 import { viewLoanRequests, updateLoanRequests } from "../../../../../API"
+import { GiFlexibleLamp } from 'react-icons/gi';
 
 const Loanreq = () => {
     const [loanrequests, setLoanRequests] = React.useState([]);
@@ -41,13 +42,13 @@ const Loanreq = () => {
                                     <td>{loan.users.name}</td>
                                     <td>{loan.amount}</td>
                                     <td>{loan.period}</td>
-                                    <td>
+                                    <td style = {{display: 'flex'}}>
                                         {
                                             loan.status === 1 || loan.status === 2 ?
                                             <p>{status[loan.status]}</p>:
                                             <React.Fragment>
-                                                <button onClick={() => onClick(loan.id, 1)} className={styles.btn}>Accept</button>
-                                                <button onClick={() => onClick(loan.id, 2)} className={styles.btn}>Reject</button>
+                                                <button onClick={() => onClick(loan.id, 1)} className={styles.btn_one}>Accept</button>
+                                                <button onClick={() => onClick(loan.id, 2)} className={styles.btn_two}>Reject</button>
                                             </React.Fragment>
                                         }
                                         

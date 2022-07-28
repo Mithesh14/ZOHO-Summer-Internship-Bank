@@ -6,8 +6,9 @@ import styles from "./style.module.css";
 
 import { logout, fetchAccounts } from "../../../../../API"
 import { BiReset}  from 'react-icons/bi';
-import { MdOutlineAddBox, MdEditNote, MdCancel, MdOutlineLogout, MdPersonRemove } from 'react-icons/md';
+import { MdOutlineAddBox, MdEditNote, MdOutlineLogout, MdPersonRemove } from 'react-icons/md';
 import { TbReportAnalytics } from 'react-icons/tb';
+import { VscRequestChanges } from 'react-icons/vsc';
 
 
 const activeClass = ({ isActive }) => isActive ? styles.active + " " + styles.link : styles.link;
@@ -47,9 +48,9 @@ const Manager = () => {
                     <div className={styles.user}>
 
                     </div>
-                    <a href="../../authentication/Login">
-                    <MdOutlineLogout onClick={onSubmit} className={styles.out} NavLink="Login"/>
-                    </a>
+                    <button onClick={onSubmit} className={styles.out}>LOGOUT
+                    <MdOutlineLogout className={styles.outicon}/> 
+                    </button> 
                     
                 </div>
                 <div className={styles.sidebar}>
@@ -70,7 +71,7 @@ const Manager = () => {
                         </NavLink>
 
                         <NavLink to="loanrequest" className={activeClass}>
-                            <MdCancel className={styles.ioP} />
+                            <VscRequestChanges className={styles.ioP} />
                             <p className={styles.btn}>Loan Requests</p></NavLink>
 
                         <NavLink to="closeacc" className={activeClass}>

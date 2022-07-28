@@ -10,6 +10,7 @@ const transactionTypes = {
 
 const Tran = () => {
     const [transactions, setTransactions] = React.useState([]);
+    
 
     const success = (transactions) => {
         console.log(transactions);
@@ -32,8 +33,9 @@ const Tran = () => {
                     <thead>
                         <tr>
                             <th>TRANSACTION ID</th>
-                            <th>TYPE</th>
                             <th>ACCOUNT NUMBER</th>
+                            <th>AMOUNT</th>
+                            <th>TYPE</th>
                             <th>DATE</th>
                             <th>STATUS</th>
                         </tr>
@@ -44,9 +46,10 @@ const Tran = () => {
                                 transaction => 
                                 <tr>
                                     <td>{transaction.id}</td>
+                                    <td>{transaction.accountNumber}</td>
+                                    <td>Rs.{transaction.amount}</td>
                                     <td>{transactionTypes[transaction.type]}</td>
-                                    <td>{transaction.amount}</td>
-                                    <td>{transaction.date}</td>
+                                    <td>{new Date(transaction.date).toLocaleString()}</td>
                                     <td>{transaction.status}</td>
                                 </tr>
                             )

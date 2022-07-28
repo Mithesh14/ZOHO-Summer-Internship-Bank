@@ -43,13 +43,13 @@ const Cls = () => {
                                     <td>{request.accounts.users.phoneNumber}</td>
                                     <td>{request.accounts.users.address}</td>
                                     <td>{request.accounts.accountNumber}</td>
-                                    <td>
+                                    <td style = {{display: 'flex'}}>
                                         {
                                             request.status == 2 || request.status == 3 ?
                                             <p>{status[request.status]}</p>:
                                             <React.Fragment>
-                                                <button onClick={() => onClick(request.id, 2)} className={styles.btn}>Accept</button>
-                                                <button onClick={() => onClick(request.id, 3)} className={styles.btn}>Reject</button>
+                                                <button onClick={() => onClick(request.id, 2)} className={styles.btn_one}>Accept</button>
+                                                <button onClick={() => onClick(request.id, 3)} className={styles.btn_two}>Reject</button>
                                             </React.Fragment>
                                         }
                                         

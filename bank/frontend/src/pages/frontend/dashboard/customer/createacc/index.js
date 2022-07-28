@@ -39,7 +39,7 @@ const Creatacc = () => {
     <div className={styles.main}>
       <div className={styles.container}>
         <form className={styles.contact_box} onSubmit={onSubmit}>
-          <h2 className={styles.h2_cont}>Create Bank Account</h2>
+          <h2 className={styles.h2_cont}>CREATE NEW BANK ACCOUNT</h2>
           <select className={styles.field} value={accountType} onChange={onAccountTypeChange}>
             <option value={0} selected disabled>Select an account type</option>
             { accountTypes.map((account,idx) => <option key={idx} value={account.value}>{account.label}</option>) }
@@ -48,7 +48,7 @@ const Creatacc = () => {
             <option value={0} selected disabled>Select an branch</option>
             { branches.map((branch, idx) => <option key={idx} value={branch.id} >{branch.name}</option> ) }
           </select>
-          <button className={styles.btn}>Create new account</button>
+          <button className={styles.btn}>CREATE</button>
         </form>
       </div>
     </div>

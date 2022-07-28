@@ -72,14 +72,14 @@
     color: #00264D;
 }
 
-.btn {
-    width: 40%;
+.btn_one {
+    width: 60%;
     border: none;
-    padding: 18px;
+    padding: 15px 20px;
     font-family: 'Rubik', sans-serif;
     cursor: pointer;
     text-transform: uppercase;
-    background: #0D47A1;
+    background: #40bf60;
     color: #fff;
     border-radius: 2rem;
     letter-spacing: 0.2px;
@@ -88,7 +88,27 @@
     transition: all .3s;
   }
 
-  .btn:hover {
+  .btn_two {
+    width: 60%;
+    margin-left: 1rem;
+    border: none;
+    align-items: center;
+    padding: 15px 20px;
+    font-family: 'Rubik', sans-serif;
+    cursor: pointer;
+    border-radius: 2rem;
+    text-transform: uppercase;
+    background: #ff0000;
+    color: #fff;
+    letter-spacing: 0.2px;
+    outline: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+
+
+  
+  .btn_one:hover, .btn_two:hover {
     background: #d8d8d8;
     color: #0D47A1;
   }

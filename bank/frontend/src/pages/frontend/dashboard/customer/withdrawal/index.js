@@ -35,7 +35,7 @@ const Wit = () => {
         <div className={styles.main}>
             <div className={styles.container}>
                 <form onSubmit={onSubmit} className={styles.contact_box}>
-                    <h2 className={styles.h2_cont}>Withdraw Money</h2>
+                    <h2 className={styles.h2_cont}>WITHDRAW</h2>
                     <select className={styles.field} onChange={(e) => setAccountNumber(e.target.value)}>
                         <option className={styles.field} value="" selected disabled>Select an account</option>
                         {accounts.map(account => <option value={account.accountNumber}>{account.accountNumber}</option>)}

@@ -1,0 +1,8 @@
+TODO
+Rport: db schema explanation, frontend tool, api calls
+
+
+Add confirm password, old password in reset password column.
+Approve decline colour change, Alignment issues.
+Amount, accountnumber in transaction table.
+Session concept implementation.

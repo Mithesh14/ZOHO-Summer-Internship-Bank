@@ -48,7 +48,7 @@ const Emi = () => {
   return (
     <div className={styles.main}>
     <div className={styles.contact_box}>
-        <h2 className={styles.h2_cont}>Schedule EMI</h2>
+        <h2 className={styles.h2_cont}>EMI SCHEDULE</h2>
         <table className={styles.content_table}>
             <thead>
                 <tr>
@@ -58,7 +58,6 @@ const Emi = () => {
                     <th>MONTHLY INTEREST</th>
                     <th>PRINCIPAL</th>
                     <td>OUTSTANDING BALANCE</td>
-                    <td>ACTION</td>
                 </tr>
             </thead>
             <tbody>
@@ -72,7 +71,6 @@ const Emi = () => {
                         <td>{schedule.monthlyInterest}</td>
                         <td>{schedule.principal}</td>
                         <td>{schedule.outstanding}</td>
-                        <td><button className={styles.btn}>Pay</button></td>
                         </tr>
                     )
             }

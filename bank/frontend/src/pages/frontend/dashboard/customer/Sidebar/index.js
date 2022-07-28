@@ -52,9 +52,9 @@ const Customer = () => {
                     <div className={styles.user}>
 
                     </div>
-                    <a href="../../authentication/Login">
-                    <MdOutlineLogout onClick={onSubmit} className={styles.out} />
-                    </a>                
+                    <button onClick={onSubmit} className={styles.out}>LOGOUT
+                    <MdOutlineLogout className={styles.outicon}/> 
+                    </button>                
                         </div>
                 <div className={styles.sidebar}>
                     <div className={styles.sidecontent}>

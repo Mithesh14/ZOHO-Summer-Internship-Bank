@@ -284,8 +284,6 @@ exports.fetchBranch = async (req, res) => {
 }
 
 
-
-
 exports.applyLoan = async (req, res) => {
 
     if(req.body.amount > 3000000){
@@ -312,6 +310,7 @@ exports.applyLoan = async (req, res) => {
                 status: 0,
                 userId : req.user.id,
                 period: Number.parseInt(req.body.loantenure)
+
             }
         });
         
@@ -338,3 +337,49 @@ exports.fetchLoan = async (req, res) => {
         res.status(500).json({message:"Internal server error"});
     }
 }
+
+// exports.payLoan = async (req, res) => {
+
+//     if(req.body.amount === 0){
+//         return res.status(411).json({message: "There is no amount to be paid"});
+//     }
+
+//     const loan = await prisma.loan.findFirst({where:{userId:req.user.id}});
+
+//     if(req.body.status===1){
+//         return res.status(401).json({ message: "The request is already approved by the manager!" });            
+//     }
+
+//     console.log(req.body);
+//     try {
+//         await prisma.loan.update({
+//             data: {
+//                 paid:{
+//                     increment: Number.parseInt(req.body.amount) 
+//                 },
+//                 monthspaid: increment,
+
+//             }
+//         });
+
+//         const loanpay = await prisma.loan.findUnique({
+//             where: {
+//                 loan: {
+//                     id: Number.parseInt(req.body.id)
+//                 }
+//             }
+//         });
+
+//         if(loanpay.period === loanpay.monthspaid){
+//             await prisma.loan.update({
+
+//             })
+//         }
+
+//         return res.status(200).json({ message: "Loan Request sent successfully!" });
+//     }
+//     catch(e) {
+//         console.log(e);
+//         res.status(500).json({message:"Internal server error"});
+//     }
+// }

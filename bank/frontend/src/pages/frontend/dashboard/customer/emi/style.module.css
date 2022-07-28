@@ -69,26 +69,6 @@
     font-weight: bold;
 }
 
-.btn {
-    width: 100%;
-    border: none;
-    padding: 18px;
-    font-family: 'Rubik', sans-serif;
-    cursor: pointer;
-    border-radius: 1.5rem;
-    text-transform: uppercase;
-    background: red;
-    color: #fff;
-    letter-spacing: 0.2px;
-    outline: 0;
-    -webkit-transition: all .3s;
-    transition: all .3s;
-  }
-
-  .btn:hover {
-    background: #d8d8d8;
-    color: #0D47A1;
-  }
 
 .content_table th,
 .content_table td {
@@ -97,6 +77,11 @@
 
 .content_table tbody tr {
     border-bottom: 1px solid #dddddd;
+}
+
+.content_table th, td {
+    border-left: 1px solid #eee;
+    border-collapse: collapse;
 }
 
 .content_table tbody tr:nth-of-type(even) {

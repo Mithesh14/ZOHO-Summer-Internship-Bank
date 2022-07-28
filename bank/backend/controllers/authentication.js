@@ -111,6 +111,13 @@ exports.logout = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
     try {
+        console.log(req.body.oldpassword);
+        const result = await bcrypt.compare(req.body.oldpassword, req.user.password)
+        
+        if(!result){
+            return res.status(411).json({message: "Old password is incorrect"})
+        }
+
         const hash = await bcrypt.hash(req.body.password, 12);
 
         await prisma.users.update({

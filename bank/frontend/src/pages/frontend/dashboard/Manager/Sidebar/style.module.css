@@ -34,16 +34,39 @@
 
 .user {
     position: relative;
-    width: 150px;
+    width: 50px;
     height: 50px;
     justify-self: right;
 }
 
 .out{
     float: right;
-    margin-left: 60rem;
+    margin-left: 50rem;
+    display: flex;
+    width: 13%;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    font-family: 'Rubik', sans-serif;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    background: #00264D;
+    color: #fff;
+    letter-spacing: 0.5px;
+    outline: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
 }
 
+.out:hover {
+    color: #d8d8d8;
+    background-color: #ff0000;
+  }
+
+.outicon {
+    color: #fff;
+    margin-left: 0.75rem;
+}
 /* sidebar */
 
 .sidebar {
