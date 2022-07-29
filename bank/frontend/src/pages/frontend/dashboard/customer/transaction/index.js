@@ -1,5 +1,7 @@
 import React from 'react';
-import { fetchTransaction, depositMoney } from "../../../../../API";
+import { fetchTransaction} from "../../../../../API";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./style.module.css";
 
@@ -13,12 +15,11 @@ const Tran = () => {
     
 
     const success = (transactions) => {
-        console.log(transactions);
         setTransactions(transactions);
     }
 
     const error = (message) => {
-        alert(message);
+        toast.error(message,{position: "top-center", autoClose: 2000,});
     }
 
     React.useEffect(() => {

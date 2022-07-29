@@ -5,8 +5,12 @@ import { login } from "../../../../API"
 import {AuthenticationContext } from "../../../../providers/authentication";
 import styles from "./style.module.css";
 import log from "../../../../assests/img/bank.svg";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Login() {
+  const notify = () => toast("Login successfull!");
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -15,19 +19,19 @@ function Login() {
   
 
   const success = (message) => {
-    alert(message);
+    toast.success(message,{position: "top-center", autoClose: 2000,});
     window.location.reload();
   }
 
   const error = (message) => {
-    alert(message);
+    toast.error(message,{position: "top-center", autoClose: 2000,});
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
  
-    if(phoneNumber === "") return alert("Phone Number cannot be empty");
-    if(password === "") return alert("Password cannot be empty");
+    if(phoneNumber === "") return toast.warn("Phone Number cannot be empty",{position: "top-center", autoClose: 2000,});
+    if(password === "") return toast.warn("Password cannot be empty",{position: "top-center", autoClose: 2000,});
  
     const data = { phoneNumber, password };
 

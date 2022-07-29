@@ -1,6 +1,8 @@
 import React from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
 import { editBranch } from "../../../../../API";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./style.module.css";
 
@@ -22,16 +24,16 @@ const EditPage = () => {
         e.preventDefault();
 
         if (!branchName) {
-            return alert("Branch Name can't be empty!");
+            return toast.warn("Branch Name can't be empty!",{position: "top-center", autoClose: 2000,});
         }
 
         if (!branchAddress) {
-            return alert("Branch address can't be empty!");
+            return toast.warn("Branch address can't be empty!",{position: "top-center", autoClose: 2000,});
         }
 
         const data = {id: branch.id, name: branchName, address: branchAddress };
 
-        editBranch(data, (message) => { alert(message); navigate("..") }, (message) => alert(message));
+        editBranch(data, (message) => { toast(message,{position: "top-center", autoClose: 2000,}); navigate("..") }, (message) => toast(message,{position: "top-center", autoClose: 2000,}));
     }
 
 

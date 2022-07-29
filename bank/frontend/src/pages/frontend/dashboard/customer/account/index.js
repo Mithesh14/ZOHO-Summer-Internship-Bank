@@ -1,5 +1,7 @@
 import React from 'react';
 import { fetchAccounts, closeAccount } from "../../../../../API";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./style.module.css";
 
@@ -50,7 +52,7 @@ const Card = (props) => {
     }
 
     const onClose = () => {
-        closeAccount({accountNumber: props.account.accountNumber}, (message) => alert(message), (message) => alert(message));
+        closeAccount({accountNumber: props.account.accountNumber}, (message) => toast(message,{position: "top-center", autoClose: 2000,}), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
     }
 
     return (

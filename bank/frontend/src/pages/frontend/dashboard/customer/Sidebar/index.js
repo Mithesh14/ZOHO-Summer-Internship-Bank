@@ -9,6 +9,8 @@ import { BiReset}  from 'react-icons/bi';
 import { IoCreateSharp } from 'react-icons/io5';
 import {AuthenticationContext} from "../../../../../providers/authentication"
 import { fetchLoan } from "../../../../../API";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const activeClass = ({ isActive }) => isActive ? styles.active + " " + styles.link : styles.link;
@@ -25,12 +27,12 @@ const Customer = () => {
 
     const success = (message) => {
         setState({user: null, status: false})
-        alert(message);
+        toast.success(message,{position: "top-center", autoClose: 2000,});
         navigate("/");
       }
     
       const error = (message) => {
-        alert(message);
+        toast.error(message,{position: "top-center", autoClose: 2000,});
       }
 
       const onSubmit = (e) => {
@@ -39,7 +41,7 @@ const Customer = () => {
       }
 
       React.useEffect(() => {
-        fetchLoan((loan) => setLoan(loan), (message) => alert(message));
+        fetchLoan((loan) => setLoan(loan), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
     },[]);
     return (
         <>

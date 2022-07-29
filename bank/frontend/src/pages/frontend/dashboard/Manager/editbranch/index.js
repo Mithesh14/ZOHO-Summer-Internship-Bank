@@ -1,6 +1,8 @@
 import React from 'react'
 import { deleteBranch, fetchBranches } from "../../../../../API";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./style.module.css";
 
@@ -9,14 +11,14 @@ const Tran = () => {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        fetchBranches(branches => setBranches(branches), message => alert(message));
+        fetchBranches(branches => setBranches(branches), message => toast(message,{position: "top-center", autoClose: 2000,}));
     }, []);
 
     const onEdit = (branch) => navigate(`${branch.id}`, { state: { branch } });
 
     const onDelete = (branchId) => {
         const data = {id: branchId};
-        deleteBranch(data, (message) => alert(message), (message) => alert(message));
+        deleteBranch(data, (message) => toast(message,{position: "top-center", autoClose: 2000,}), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
     }
 
     // const { state: { branch } } = useLocation();

@@ -1,10 +1,12 @@
 import React from "react";
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {AuthenticationContext} from "../../../../../providers/authentication"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./style.module.css";
 
-import { logout, fetchAccounts } from "../../../../../API"
+import { logout} from "../../../../../API"
 import { BiReset}  from 'react-icons/bi';
 import { MdOutlineAddBox, MdEditNote, MdOutlineLogout, MdPersonRemove } from 'react-icons/md';
 import { TbReportAnalytics } from 'react-icons/tb';
@@ -25,12 +27,12 @@ const Manager = () => {
 
     const success = (message) => {
         setState({user: null, status: false})
-        alert(message);
+        toast.success(message,{position: "top-center", autoClose: 2000,});
         navigate("/");
       }
     
       const error = (message) => {
-        alert(message);
+        toast.error(message,{position: "top-center", autoClose: 2000,});
       }
 
       const onSubmit = (e) => {

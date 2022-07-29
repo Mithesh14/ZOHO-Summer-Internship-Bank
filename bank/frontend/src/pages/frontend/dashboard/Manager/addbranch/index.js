@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from "./style.module.css";
 import { createBranch } from "../../../../../API";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dep = () => {
 
@@ -21,17 +23,17 @@ const Dep = () => {
         
         if(!branchname)
         {
-            alert("Branch Name can't be empty!");
+            return toast.warn("Branch Name can't be empty!",{position: "top-center", autoClose: 2000,});
         }
 
         if(!branchaddress)
         {
-            alert("Branch address can't be empty!");
+            return toast.warn("Branch address can't be empty!",{position: "top-center", autoClose: 2000,});
         }
     
         const data = {name: branchname, address: branchaddress};
     
-        createBranch(data, (message) => alert(message), (message) => alert(message));
+        createBranch(data, (message) => toast(message,{position: "top-center", autoClose: 2000,}), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
       }
 
       

@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from "./style.module.css";
 import { applyLoan, fetchBranches } from "../../../../../API"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Lo = () => {
   const [loantype, setLoanType] = React.useState("");
@@ -10,25 +13,25 @@ const Lo = () => {
   const [branches, setBranches] = React.useState([]);
 
   const success = (message) => {
-    alert(message);
+    toast.success(message,{position: "top-center", autoClose: 2000,});
 }
 
 const error = (message) => {
-    alert(message);
+    toast.error(message,{position: "top-center", autoClose: 2000,});
 }
 
 React.useEffect(() => {
-  fetchBranches((branches) => setBranches(branches), (message) => alert(message));
+  fetchBranches((branches) => setBranches(branches), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
 }, []);
 
 const onSubmit = (e) => {
   e.preventDefault();
 
-  if(loantype === "") return alert("Loan Type cannot be empty");
-  if(loantenure === "") return alert("Loan Tenure cannot be empty");
-  if(loanbranch === "") return alert("Loan Branch cannot be empty");
-  if(loanamount === "") return alert("Loan amount cannot be empty");
-  if(loanamount > 3000000) return alert("Loan amount shouldnot exceed 3000000");
+  if(loantype === "") return toast.warn("Loan Type cannot be empty",{position: "top-center", autoClose: 2000,});
+  if(loantenure === "") return toast.warn("Loan Tenure cannot be empty",{position: "top-center", autoClose: 2000,});
+  if(loanbranch === "") return toast.warn("Loan Branch cannot be empty",{position: "top-center", autoClose: 2000,});
+  if(loanamount === "") return toast.warn("Loan amount cannot be empty",{position: "top-center", autoClose: 2000,});
+  if(loanamount > 3000000) return toast.warn("Loan amount shouldnot exceed 3000000",{position: "top-center", autoClose: 2000,});
 
   const data = { loantype, loantenure, loanbranch, loanamount };
 

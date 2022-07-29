@@ -1,5 +1,7 @@
 import React from 'react';
 import { fetchBranches, createAccount } from "../../../../../API";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./style.module.css";
 
@@ -9,7 +11,7 @@ const Creatacc = () => {
   const [branches, setBranches] = React.useState([]);
 
   React.useEffect(() => {
-    fetchBranches((branches) => setBranches(branches), (message) => alert(message));
+    fetchBranches((branches) => setBranches(branches), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
   }, []);
 
   const accountTypes = [
@@ -28,11 +30,12 @@ const Creatacc = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // add validation
+    if(!accountType) return toast.warning("Choose the account type!",{position: "top-center", autoClose: 2000,});
+    if(!setBranch) return toast.warning("Branch is not selected !",{position: "top-center", autoClose: 2000,});
 
     const data = {branchId: branch, accountType, balance: 1000};
 
-    createAccount(data, (message) => alert(message), (message) => alert(message));
+    createAccount(data, (message) => toast(message,{position: "top-center", autoClose: 2000,}), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
   }
 
   return (

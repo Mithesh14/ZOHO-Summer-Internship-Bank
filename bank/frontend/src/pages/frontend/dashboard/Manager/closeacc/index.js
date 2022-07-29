@@ -1,5 +1,7 @@
 import React from 'react'
 import { fetchRequests, updateRequest } from "../../../../../API";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./style.module.css";
 
@@ -11,11 +13,11 @@ const Cls = () => {
     }
 
     React.useEffect(() => {
-        fetchRequests((data) => setRequests(data), (message) => alert(message));
+        fetchRequests((data) => setRequests(data), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
     },[]);
 
     const onClick = (requestId, status) => {
-        updateRequest({requestId, status}, (message) =>alert(message), (message) =>alert(message));
+        updateRequest({requestId, status}, (message) =>toast(message,{position: "top-center", autoClose: 2000,}), (message) =>toast(message,{position: "top-center", autoClose: 2000,}));
     }
 
     return (

@@ -3,6 +3,8 @@ import { Route, Routes, BrowserRouter, Navigate, useNavigate, Outlet } from "rea
 import { AuthenticationContext } from './providers/authentication'
 import { fetchUser } from "./API";
 import "../src/App.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //Authentication
 import Login from "./pages/frontend/authenticate/login";
@@ -51,6 +53,7 @@ const App = () => {
   return (
     loading?
     <h1>loading</h1>:
+    <>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="authentication" replace />} />
@@ -84,6 +87,8 @@ const App = () => {
         </Route>
       </Routes>
     </BrowserRouter>
+    <ToastContainer />
+    </>
   );
 };
 

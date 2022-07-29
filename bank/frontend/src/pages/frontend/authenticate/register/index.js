@@ -5,7 +5,9 @@ import { MdPassword, MdContactPhone } from 'react-icons/md';
 import { ImAddressBook } from 'react-icons/im';
 import { GiCharacter } from 'react-icons/gi'; 
 import { register } from "../../../../API";
-import {AuthenticationContext } from "../../../../providers/authentication";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import styles from "./style.module.css";
 import reg from "../../../../assests/img/bank.svg";
@@ -25,21 +27,21 @@ function Register() {
   ];
 
   const success = (message) => {
-    alert(message);
+    toast.success(message,{position: "top-center", autoClose: 2000,});
   }
 
   const error = (message) => {
-    alert(message);
+    toast.error(message,{position: "top-center", autoClose: 2000,});
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
  
-    if(name === "") return alert("Name cannot be empty");
-    if(phoneNumber === "") return alert("Phone Number cannot be empty");
-    if(address === "") return alert("Address cannot be empty");
-    if(password === "") return alert("Password cannot be empty");
-    if(role === "") return alert("Role cannot be empty");
+    if(name === "") return toast.warn("Name cannot be empty",{position: "top-center", autoClose: 2000,});
+    if(phoneNumber === "") return toast.warn("Phone Number cannot be empty",{position: "top-center", autoClose: 2000,});
+    if(address === "") return toast.warn("Address cannot be empty",{position: "top-center", autoClose: 2000,});
+    if(password === "") return toast.warn("Password cannot be empty",{position: "top-center", autoClose: 2000,});
+    if(role === "") return toast.warn("Role cannot be empty",{position: "top-center", autoClose: 2000,});
 
     const data = { name, phoneNumber, address, password, role };
 
@@ -64,26 +66,7 @@ function Register() {
               />
               <IoPeople className={styles.iop} />
             </div>
-            <div className={styles.input_field}>
-              <input
-                type="password"
-                className="form-control"
-                name="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <MdPassword className={styles.iop} />
-            </div>
 
-            <div className={styles.input_field_check}>Show password&nbsp;&nbsp;&nbsp;
-              <input 
-                type="checkbox" 
-                placeholder="Show password"
-                onChange={(e) => setshowPassword(!showpassword)}
-              />
-            </div>
 
             <div className={styles.input_field}>
               <input
@@ -118,7 +101,30 @@ function Register() {
               </select>
               <GiCharacter className={styles.iop} />
             </div>
+
+            <div className={styles.input_field}>
+              <input
+                type="password"
+                className="form-control"
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <MdPassword className={styles.iop} />
+            </div>
+
+            <div className={styles.input_field_check}>Show password&nbsp;&nbsp;&nbsp;
+              <input 
+                type="checkbox" 
+                placeholder="Show password"
+                onChange={(e) => setshowPassword(!showpassword)}
+              />
+            </div>
           </div>
+
+          
 
           <div className={styles.action}>
             <Link to="/" className={styles.btn} style={{ textDecoration: 'none', textAlign: "center" }}>Login</Link>

@@ -1,5 +1,7 @@
 import React from 'react';
-import { generateReport, fetchBranches} from '../../../../../API';
+import { generateReport} from '../../../../../API';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./style.module.css";
 
@@ -9,7 +11,7 @@ const Rep = () => {
     React.useEffect(() => {
         generateReport(
             data => setData(data), 
-            message => alert(message)
+            message => toast(message,{position: "top-center", autoClose: 2000,})
         );
     }, []);
 
@@ -36,9 +38,9 @@ const Rep = () => {
                                 <tr>
                                     <td>{branch.id}</td>
                                     <td>{branch.name}</td>
-                                    <td>{data.report[branch.id].accounts}</td>
-                                    <td>{data.report[branch.id].amounts}</td>
-                                    <td>{data.report[branch.id].loans}</td>
+                                    <td>{data.report[branch.id]?.accounts}</td>
+                                    <td>{data.report[branch.id]?.amounts}</td>
+                                    <td>{data.report[branch.id]?.loans}</td>
                                 </tr>
                             ) 
                         }

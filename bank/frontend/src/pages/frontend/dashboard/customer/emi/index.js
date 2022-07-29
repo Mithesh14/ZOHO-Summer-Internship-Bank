@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from "./style.module.css";
 import { fetchLoan } from "../../../../../API";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Emi = () => {
     const [loan, setLoan] = React.useState(null);
@@ -10,12 +12,11 @@ const Emi = () => {
 
     const success = (loan) => {
         setLoan(loan);
-        console.log(loan);
         setSchedules(calculateEMI(loan.amount, interests[loan.type], loan.period));
     }
     
     const error = (message) => {
-        alert(message);
+        toast.error(message,{position: "top-center", autoClose: 2000,});
     }
 
     React.useEffect(() => {

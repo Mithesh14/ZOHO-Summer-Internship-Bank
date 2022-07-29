@@ -3,6 +3,8 @@ import styles from "./style.module.css";
 import { resetPassword} from "../../../../../API"
 import {useNavigate} from "react-router-dom"
 import {AuthenticationContext} from "../../../../../providers/authentication"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Resetpwd = () => {
     const [oldpassword, setoldPassword] = React.useState("");
@@ -12,22 +14,28 @@ const Resetpwd = () => {
     const [state,setState] = React.useContext(AuthenticationContext);
     const success = (message) => {
         setState({user: null, status: false})
-        alert(message);
+        toast.success(message,{position: "top-center", autoClose: 2000,});
         navigate("/");
     }
     
     const error = (message) => {
-        alert(message);
+        toast.error(message,{position: "top-center", autoClose: 2000,});
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        
-        if(newpassword === "") return alert("New passsword can't be empty");
 
-        if(newpassword !== confirmpassword) return alert("Password doesn't match")
+        if(!newpassword && !oldpassword && !confirmpassword) return toast.warning("Credentials can't be empty",{position: "top-center", autoClose: 2000,}); 
         
-        if(newpassword.length < 5) return alert("New passsword should be atleast 5 characters in length");
+        if(newpassword === "") return toast.warning("New passsword can't be empty",{position: "top-center", autoClose: 2000,});
+
+        if(!oldpassword) return toast.warning("Old passsword can't be empty",{position: "top-center", autoClose: 2000,});
+
+        if(!confirmpassword) return toast.warning("Confirm passsword can't be empty",{position: "top-center", autoClose: 2000,});
+
+        if(newpassword !== confirmpassword) return toast.warning("Password doesn't match",{position: "top-center", autoClose: 2000,})
+        
+        if(newpassword.length < 5) return toast.warning("New passsword should be atleast 5 characters in length",{position: "top-center", autoClose: 2000,});
      
         const data = { password :   newpassword, oldpassword: oldpassword, confirmpassword:confirmpassword};
     

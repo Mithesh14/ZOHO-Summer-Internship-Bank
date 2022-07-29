@@ -2,7 +2,7 @@ const prisma = require("../utils/prisma");
 const { accounts } = require("./customer");
 
 exports.addBranch = async (req, res) => {
-    if(req.body.name === "" || req.body.address === ""){
+    if(!req.body.name || !req.body.address){
         return res.status(401).json({ message: "Credentials cannot be empty"});
     }
 

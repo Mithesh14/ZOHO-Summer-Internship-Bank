@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from "./style.module.css";
 import { viewLoanRequests, updateLoanRequests } from "../../../../../API"
-import { GiFlexibleLamp } from 'react-icons/gi';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Loanreq = () => {
     const [loanrequests, setLoanRequests] = React.useState([]);
@@ -11,11 +12,11 @@ const Loanreq = () => {
     }
 
     React.useEffect(() => {
-        viewLoanRequests((data) => setLoanRequests(data), (message) => alert(message));
+        viewLoanRequests((data) => setLoanRequests(data), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
     },[]);
 
     const onClick = (loanId, status) => {
-        updateLoanRequests({loanId, status}, (message) =>alert(message), (message) =>alert(message));
+        updateLoanRequests({loanId, status}, (message) =>toast(message,{position: "top-center", autoClose: 2000,}), (message) =>toast(message,{position: "top-center", autoClose: 2000,}));
     }
     
 

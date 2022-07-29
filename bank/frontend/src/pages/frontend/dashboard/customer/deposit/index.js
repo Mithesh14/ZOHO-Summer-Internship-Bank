@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from "./style.module.css";
 import { depositMoney, fetchAccounts } from "../../../../../API"
-import accounts from '../account';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dep = () => {
     const [accounts, setAccounts] = React.useState([]);
@@ -9,22 +10,22 @@ const Dep = () => {
     const [amount, setAmount] = React.useState("");
 
     const success = (message) => {
-        alert(message);
+        toast.success(message,{position: "top-center", autoClose: 2000,});
     }
     
     const error = (message) => {
-        alert(message);
+        toast.error(message,{position: "top-center", autoClose: 2000,});
     }
 
     React.useEffect(() => {
-        fetchAccounts((accounts) => setAccounts(accounts.otherAccounts), (message) => alert(message));
+        fetchAccounts((accounts) => setAccounts(accounts.otherAccounts), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
     }, []);
       
     const onSubmit = (e) => {
         e.preventDefault();
      
-        if(accountNumber === "") return alert("Account Number cannot be empty");
-        if(amount === "") return alert("Amount cannot be empty");
+        if(accountNumber === "") return toast.warning("Choose the account Number!",{position: "top-center", autoClose: 2000,});
+        if(amount === "") return toast.warning("Amount cannot be empty",{position: "top-center", autoClose: 2000,});
      
         const data = { accountNumber, amount };
     
