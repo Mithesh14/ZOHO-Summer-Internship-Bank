@@ -3,6 +3,12 @@ import axios from "axios"
 export const register = async (data, success, error) => {
     try {   
         const response = await axios.post("/authentication/register", data);
+        // document.cookie.split(";").forEach(cookie => {
+        //     const [key, value] = cookie.split("=");
+        //     if(key === "CSRF-TOKEN") {
+        //         axios.defaults.headers["X-CSRF-Token"] = value;
+        //     }
+        // });
         success(response.data.message);
 
     }
@@ -14,6 +20,12 @@ export const register = async (data, success, error) => {
 export const login = async (data, success, error) => {
     try {
         const response = await axios.post("/authentication/login", data);
+        // document.cookie.split(";").forEach(cookie => {
+        //     const [key, value] = cookie.split("=");
+        //     if(key === "CSRF-TOKEN") {
+        //         axios.defaults.headers["X-CSRF-Token"] = value;
+        //     }
+        // });
         success("Login successfull", response.data.user);
     }
 

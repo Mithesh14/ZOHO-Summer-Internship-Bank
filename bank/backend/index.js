@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+// const csrf = require("../backend/middlewares/csrf")
 
 
 const { login, register, user, logout, resetPassword } = require("./controllers/authentication");
@@ -16,6 +17,7 @@ const app = express();
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 app.use(express.json())
 app.use(cookieParser())
+// app.use(csrf)
 
 app.post("/authentication/login", login);
 app.post("/authentication/register", register);

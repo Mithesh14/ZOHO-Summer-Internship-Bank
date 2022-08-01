@@ -4,6 +4,7 @@ import { resetPassword} from "../../../../../API"
 import {useNavigate} from "react-router-dom"
 import {AuthenticationContext} from "../../../../../providers/authentication"
 import { toast } from 'react-toastify';
+import { Modal } from "../../../../../shared/Modal/Modal";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Resetpwd = () => {
@@ -12,6 +13,8 @@ const Resetpwd = () => {
     const [confirmpassword, setconfirmPassword] = React.useState("");
     const navigate = useNavigate();
     const [state,setState] = React.useContext(AuthenticationContext);
+    const [showModal, setShowModal]=React.useState(false);
+    
     const success = (message) => {
         setState({user: null, status: false})
         toast.success(message,{position: "top-center", autoClose: 2000,});
@@ -22,9 +25,7 @@ const Resetpwd = () => {
         toast.error(message,{position: "top-center", autoClose: 2000,});
     }
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-
+    const onSubmitClick = (e) => {    
         if(!newpassword && !oldpassword && !confirmpassword) return toast.warning("Credentials can't be empty",{position: "top-center", autoClose: 2000,}); 
         
         if(newpassword === "") return toast.warning("New passsword can't be empty",{position: "top-center", autoClose: 2000,});
@@ -37,23 +38,32 @@ const Resetpwd = () => {
         
         if(newpassword.length < 5) return toast.warning("New passsword should be atleast 5 characters in length",{position: "top-center", autoClose: 2000,});
      
+        setShowModal(true);
+
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setShowModal(false);
         const data = { password :   newpassword, oldpassword: oldpassword, confirmpassword:confirmpassword};
-    
         resetPassword(data, success, error);
        
     }
     return (
+        <>
+        {showModal && <Modal onConfirm={onSubmit} onCancel={() => setShowModal(false)}/>}  
         <div className={styles.main}>
         <div className={styles.container}>
-            <form onSubmit={onSubmit} className={styles.contact_box}>
+            <form className={styles.contact_box}>
                 <h2 className={styles.h2_cont}>RESET PASSWORD</h2>
                 <input type="text" className={styles.field} placeholder="Old password"  onChange={(e) => setoldPassword(e.target.value)}></input>
                 <input type="text" className={styles.field} placeholder="New password"  onChange={(e) => setnewPassword(e.target.value)}></input>
                 <input type="text" className={styles.field} placeholder="Confirm password" onChange={(e) => setconfirmPassword(e.target.value)}></input>
-                <button type="submit" className={styles.btn}>Change password</button>
+                <button  type="button" onClick={onSubmitClick} className={styles.btn}>Change password</button>
             </form>
         </div>
         </div>
+        </>
   )
 }
 

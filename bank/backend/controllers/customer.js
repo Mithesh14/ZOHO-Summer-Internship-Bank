@@ -7,9 +7,9 @@ exports.addAccount = async (req, res) => {
     }
 
 
-    if(req.body.accountType === "1" | req.body.accountType === "2" & Number.parseInt(req.body.balance) < 1000){
-        return res.status(411).json({message: "Balance should be greater than 1000"});
-    }
+    // if(req.body.accountType === "1" | req.body.accountType === "2" & Number.parseInt(req.body.balance) < 1000){
+    //     return res.status(411).json({message: "Balance should be greater than 1000"});
+    // }
 
     const branch = await prisma.branch.findUnique({where:{id:Number.parseInt(req.body.branchId)}});
 
@@ -83,16 +83,19 @@ exports.accounts = async (req, res) => {
 
 exports.depositMoney = async (req, res) => {
 
-    const account = await prisma.accounts.findMany({
-        where:{accountNumber:Number.parseInt(req.body.accountNumber)}});
+    const account = await prisma.accounts.findUnique({where:{accountNumber:Number.parseInt(req.body.accountNumber)}});
 
-    if(!account) {
-        return res.status(411).json({message: "The requested account is not there!"});    
-    }
-
-    if(account.active === "0") {
-        return res.status(411).json({message: "The account must not be closed."});    
-    }
+        if(!account) {
+            return res.status(411).json({message: "The requested account is not there!"});
+        }
+    
+        if(account.userId !== req.user.id){
+            return res.status(411).json({message: "The account does not exist"});
+        }
+    
+        if(account.active === 0){
+            return res.status(411).json({message: "The account is closed"});
+        }
 
     try {
         await prisma.accounts.update({

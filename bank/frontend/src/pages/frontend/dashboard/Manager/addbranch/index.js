@@ -2,12 +2,14 @@ import React from 'react';
 import styles from "./style.module.css";
 import { createBranch } from "../../../../../API";
 import { toast } from 'react-toastify';
+import { Modal } from "../../../../../shared/Modal/Modal";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Dep = () => {
 
     const [branchname, setBranchName] = React.useState();
     const [branchaddress, setBranchAddress] = React.useState();
+    const [showModal, setShowModal]=React.useState(false);
 
     const onBranchName = (e) => {
         setBranchName(e.target.value);
@@ -16,11 +18,8 @@ const Dep = () => {
       const onBranchAddress = (e) => {
         setBranchAddress(e.target.value);
       }
-    
-      const onSubmit = (e) => {
-        e.preventDefault();
-        
-        
+
+      const onSubmitClick = (e) => {    
         if(!branchname)
         {
             return toast.warn("Branch Name can't be empty!",{position: "top-center", autoClose: 2000,});
@@ -31,6 +30,14 @@ const Dep = () => {
             return toast.warn("Branch address can't be empty!",{position: "top-center", autoClose: 2000,});
         }
     
+        setShowModal(true);
+
+    }
+    
+      const onSubmit = (e) => {
+        e.preventDefault();
+        setShowModal(false);
+        
         const data = {name: branchname, address: branchaddress};
     
         createBranch(data, (message) => toast(message,{position: "top-center", autoClose: 2000,}), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
@@ -38,6 +45,8 @@ const Dep = () => {
 
       
     return (
+        <>
+        {showModal && <Modal onConfirm={onSubmit} onCancel={() => setShowModal(false)}/>}  
         <div className={styles.main}>
             <div className={styles.container}>
                 <form className={styles.contact_box} onSubmit={onSubmit}>
@@ -48,6 +57,7 @@ const Dep = () => {
                 </form>
             </div>
         </div>
+        </>
     )
 }
 

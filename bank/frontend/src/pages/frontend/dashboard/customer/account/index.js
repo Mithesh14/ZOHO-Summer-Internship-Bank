@@ -1,5 +1,6 @@
 import React from 'react';
 import { fetchAccounts, closeAccount } from "../../../../../API";
+import { Modal } from "../../../../../shared/Modal/Modal";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -39,6 +40,8 @@ const Accounts = () => {
 }
 
 const Card = (props) => {
+    const [showModal, setShowModal]=React.useState(false);
+
     const accountTypes = {
         1: "Savings Account",
         2: "Business Account",
@@ -50,12 +53,16 @@ const Card = (props) => {
         1: "Active",
         2: "Requested"
     }
+    
 
     const onClose = () => {
+        setShowModal(false);
         closeAccount({accountNumber: props.account.accountNumber}, (message) => toast(message,{position: "top-center", autoClose: 2000,}), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
     }
 
     return (
+        <>
+        {showModal && <Modal onConfirm={onClose} onCancel={() => setShowModal(false)}/>}        
         <div className={styles.card}>
             <div className={styles.card_content}>
                 <div className={styles.number}>{ props.account.accountNumber }</div>
@@ -63,10 +70,10 @@ const Card = (props) => {
                 <div className={styles.card_name} >BRANCH ID : { props.account.branchId }</div>
                 <div className={styles.card_name}>{ props.account.branch.address }</div>
                 <div className={styles.card_name} ><i>{ accountTypes[props.account.type] }, { activeTypes[props.account.active] }</i></div>
-                {props.account.active == 1 && props.account.type != 3 && <button className={styles.btn} onClick={onClose}>Close</button>}
-                {props.account.active == 2 }
+                {props.account.active === 1 && props.account.type !== 3 && <button onClick={() => setShowModal(true)} className={styles.btn}>Close</button>}
             </div>
         </div>
+        </>
     );
 }
 

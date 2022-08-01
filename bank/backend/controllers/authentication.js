@@ -5,6 +5,7 @@ const { users } = require("../utils/prisma");
 const prisma = require("../utils/prisma");
 
 exports.user = async (req, res) => {
+    // res.cookie("CSRF-TOKEN", req.csrfToken(), { secure: false });
     return res.status(200).json({
         user: {
             id: req.user.id,
@@ -45,6 +46,7 @@ exports.login = async (req, res) => {
         );
 
         res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
+        // res.cookie("CSRF-TOKEN", req.csrfToken(), { secure: false });
 
         return res.status(200).json({
             user: {
@@ -95,7 +97,8 @@ exports.register = async (req, res) => {
                 role: req.body.role
             }
         });
-        
+
+        // res.cookie("CSRF-TOKEN", req.csrfToken(), { secure: false });
         return res.status(200).json({ message: "Account created successfully, Continue to login." });
     }
     catch(e) {
