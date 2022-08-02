@@ -26,8 +26,8 @@ const Wit = () => {
     }, []);
 
     const onSubmitClick = (e) => {    
-        if(accountNumber === "") return toast.warn("Choose the account Number!",{position: "top-center", autoClose: 2000,});
-        if(amount === "") return toast.warn("Amount cannot be empty",{position: "top-center", autoClose: 2000,});
+        if(accountNumber === "") return toast.warn("Select an account Number",{position: "top-center", autoClose: 2000,});
+        if(amount === "") return toast.warn("Enter an amount",{position: "top-center", autoClose: 2000,});
         setShowModal(true);
 
     }

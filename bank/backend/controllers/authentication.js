@@ -26,12 +26,12 @@ exports.login = async (req, res) => {
         const user = await prisma.users.findUnique({where:{phoneNumber:req.body.phoneNumber}});
 
         if(!user)
-            return res.status(401).json({message: "Phone Number is not registered"});
+            return res.status(401).json({message: "Couldn't find your phone number. Try again or create a new account."});
         
         const isPasswordSame = await bcrypt.compare(req.body.password, user.password);
 
         if (!isPasswordSame) 
-            return res.status(401).json({ message: "Password does not match"});
+            return res.status(401).json({ message: "Wrong password."});
         
         
         const token = jwt.sign(
@@ -74,17 +74,17 @@ exports.register = async (req, res) => {
         const user = await prisma.users.findUnique({ where: {phoneNumber: req.body.phoneNumber}});
         
         if(user)
-            return res.status(401).json({message: "Phone Number is already registered"});
+            return res.status(401).json({message: "Phone Number is already registered. Try another"});
 
 
         if(req.body.password.length < 5)
-            return res.status(411).json({message: "Password length should be greater than 5 letters"});
+            return res.status(411).json({message: "Use 5 characters or more for your password"});
 
         if(req.body.role !== "1" && req.body.role !== "0")
             return res.status(411).json({message: "Role should be either 1 or 0"});
 
         if(req.body.phoneNumber.length !== 10 )
-            return res.status(411).json({message: "Phone number should be 10 digits "});
+            return res.status(411).json({message: "This phone number format is not recognised. Phone number should be 10 digits"});
         
         const hash = await bcrypt.hash(req.body.password, 12);
 
@@ -118,7 +118,7 @@ exports.resetPassword = async (req, res, next) => {
         const result = await bcrypt.compare(req.body.oldpassword, req.user.password)
         
         if(!result){
-            return res.status(411).json({message: "Old password is incorrect"})
+            return res.status(411).json({message: "Old password didnt match. Try again."})
         }
 
         const hash = await bcrypt.hash(req.body.password, 12);
@@ -130,7 +130,7 @@ exports.resetPassword = async (req, res, next) => {
 
         res.clearCookie("token", {maxAge: 0});
 
-        return res.status(200).json({message: "Password is changed !"});
+        return res.status(200).json({message: "Password is changed!"});
     }
     catch(e) {
         console.log(e);

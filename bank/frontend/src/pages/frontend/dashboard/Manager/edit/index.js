@@ -24,11 +24,11 @@ const EditPage = () => {
         e.preventDefault();
 
         if (!branchName) {
-            return toast.warn("Branch Name can't be empty!",{position: "top-center", autoClose: 2000,});
+            return toast.warn("Enter a branch name.",{position: "top-center", autoClose: 2000,});
         }
 
         if (!branchAddress) {
-            return toast.warn("Branch address can't be empty!",{position: "top-center", autoClose: 2000,});
+            return toast.warn("Enter a branch address.",{position: "top-center", autoClose: 2000,});
         }
 
         const data = {id: branch.id, name: branchName, address: branchAddress };

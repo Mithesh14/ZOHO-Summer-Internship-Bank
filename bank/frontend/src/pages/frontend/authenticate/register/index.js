@@ -37,11 +37,11 @@ function Register() {
   const onSubmit = (e) => {
     e.preventDefault();
  
-    if(name === "") return toast.warn("Name cannot be empty",{position: "top-center", autoClose: 2000,});
-    if(phoneNumber === "") return toast.warn("Phone Number cannot be empty",{position: "top-center", autoClose: 2000,});
-    if(address === "") return toast.warn("Address cannot be empty",{position: "top-center", autoClose: 2000,});
-    if(password === "") return toast.warn("Password cannot be empty",{position: "top-center", autoClose: 2000,});
-    if(role === "") return toast.warn("Role cannot be empty",{position: "top-center", autoClose: 2000,});
+    if(name === "") return toast.warn("Enter a name",{position: "top-center", autoClose: 2000,});
+    if(phoneNumber === "") return toast.warn("Enter a phone number",{position: "top-center", autoClose: 2000,});
+    if(address === "") return toast.warn("Enter an address",{position: "top-center", autoClose: 2000,});
+    if(password === "") return toast.warn("Enter a password",{position: "top-center", autoClose: 2000,});
+    if(role === "") return toast.warn("Enter a role",{position: "top-center", autoClose: 2000,});
 
     const data = { name, phoneNumber, address, password, role };
 
@@ -123,8 +123,6 @@ function Register() {
               />
             </div>
           </div>
-
-          
 
           <div className={styles.action}>
             <Link to="/" className={styles.btn} style={{ textDecoration: 'none', textAlign: "center" }}>Login</Link>

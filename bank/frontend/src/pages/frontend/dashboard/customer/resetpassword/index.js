@@ -28,15 +28,15 @@ const Resetpwd = () => {
     const onSubmitClick = (e) => {    
         if(!newpassword && !oldpassword && !confirmpassword) return toast.warning("Credentials can't be empty",{position: "top-center", autoClose: 2000,}); 
         
-        if(newpassword === "") return toast.warning("New passsword can't be empty",{position: "top-center", autoClose: 2000,});
+        if(newpassword === "") return toast.warning("Enter a New passsword",{position: "top-center", autoClose: 2000,});
 
-        if(!oldpassword) return toast.warning("Old passsword can't be empty",{position: "top-center", autoClose: 2000,});
+        if(!oldpassword) return toast.warning("Enter an Old passsword",{position: "top-center", autoClose: 2000,});
 
         if(!confirmpassword) return toast.warning("Confirm passsword can't be empty",{position: "top-center", autoClose: 2000,});
 
         if(newpassword !== confirmpassword) return toast.warning("Password doesn't match",{position: "top-center", autoClose: 2000,})
         
-        if(newpassword.length < 5) return toast.warning("New passsword should be atleast 5 characters in length",{position: "top-center", autoClose: 2000,});
+        if(newpassword.length < 5) return toast.warning("New passsword should be atleast 5 characters",{position: "top-center", autoClose: 2000,});
      
         setShowModal(true);
 

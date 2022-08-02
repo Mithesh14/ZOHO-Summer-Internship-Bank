@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function Login() {
-  const notify = () => toast("Login successfull!");
+  const notify = () => toast("Login successful!");
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -30,8 +30,8 @@ function Login() {
   const onSubmit = (e) => {
     e.preventDefault();
  
-    if(phoneNumber === "") return toast.warn("Phone Number cannot be empty",{position: "top-center", autoClose: 2000,});
-    if(password === "") return toast.warn("Password cannot be empty",{position: "top-center", autoClose: 2000,});
+    if(phoneNumber === "") return toast.warn("Enter a phone number",{position: "top-center", autoClose: 2000,});
+    if(password === "") return toast.warn("Enter a password",{position: "top-center", autoClose: 2000,});
  
     const data = { phoneNumber, password };
 

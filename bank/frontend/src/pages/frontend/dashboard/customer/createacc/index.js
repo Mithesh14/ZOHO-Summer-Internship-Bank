@@ -30,8 +30,8 @@ const Creatacc = () => {
   }
 
   const onSubmitClick = (e) => {    
-    if(!accountType) return toast.warning("Choose the account type!",{position: "top-center", autoClose: 2000,});
-    if(!branch) return toast.warning("Branch is not selected !",{position: "top-center", autoClose: 2000,});
+    if(!accountType) return toast.warning("Select an account type",{position: "top-center", autoClose: 2000,});
+    if(!branch) return toast.warning("Select the branch",{position: "top-center", autoClose: 2000,});
     setShowModal(true);
 }
 
@@ -55,7 +55,7 @@ const Creatacc = () => {
             { accountTypes.map((account,idx) => <option key={idx} value={account.value}>{account.label}</option>) }
           </select>
           <select className={styles.field} value={branch} onChange={onBranchChange}>
-            <option value={0} selected disabled>Select an branch</option>
+            <option value={0} selected disabled>Select a branch</option>
             { branches.map((branch, idx) => <option key={idx} value={branch.id} >{branch.name}</option> ) }
           </select>
           <button type="button" onClick={onSubmitClick} className={styles.btn}>CREATE</button>

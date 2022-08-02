@@ -6,7 +6,6 @@ exports.addAccount = async (req, res) => {
         return res.status(401).json({ message: "Credentials cannot be empty"});
     }
 
-
     // if(req.body.accountType === "1" | req.body.accountType === "2" & Number.parseInt(req.body.balance) < 1000){
     //     return res.status(411).json({message: "Balance should be greater than 1000"});
     // }
@@ -90,7 +89,7 @@ exports.depositMoney = async (req, res) => {
         }
     
         if(account.userId !== req.user.id){
-            return res.status(411).json({message: "The account does not exist"});
+            return res.status(411).json({message: "The requested account does not exist"});
         }
     
         if(account.active === 0){
@@ -167,7 +166,7 @@ exports.withdrawMoney = async (req, res) => {
             }
         });
 
-        return res.status(411).json({message: "Balance should be greater than 1000"});
+        return res.status(411).json({message: "The requested amount affects the minimum balance of 1000. Try again with a lesser request."});
     }
 
     try {

@@ -20,14 +20,12 @@ const Dep = () => {
       }
 
       const onSubmitClick = (e) => {    
-        if(!branchname)
-        {
-            return toast.warn("Branch Name can't be empty!",{position: "top-center", autoClose: 2000,});
+        if(!branchname){
+            return toast.warn("Enter a branch",{position: "top-center", autoClose: 2000,});
         }
 
-        if(!branchaddress)
-        {
-            return toast.warn("Branch address can't be empty!",{position: "top-center", autoClose: 2000,});
+        if(!branchaddress){
+            return toast.warn("Enter a branch address",{position: "top-center", autoClose: 2000,});
         }
     
         setShowModal(true);
@@ -37,9 +35,7 @@ const Dep = () => {
       const onSubmit = (e) => {
         e.preventDefault();
         setShowModal(false);
-        
         const data = {name: branchname, address: branchaddress};
-    
         createBranch(data, (message) => toast(message,{position: "top-center", autoClose: 2000,}), (message) => toast(message,{position: "top-center", autoClose: 2000,}));
       }
 
@@ -49,11 +45,11 @@ const Dep = () => {
         {showModal && <Modal onConfirm={onSubmit} onCancel={() => setShowModal(false)}/>}  
         <div className={styles.main}>
             <div className={styles.container}>
-                <form className={styles.contact_box} onSubmit={onSubmit}>
+                <form className={styles.contact_box} >
                     <h2 className={styles.h2_cont}>ADD BRANCH</h2>
                     <input type="text" className={styles.field} placeholder="Branch Name" value={branchname} onChange={onBranchName}></input>
                     <textarea placeholder="Address" className={styles.field} value={branchaddress} onChange={onBranchAddress}></textarea>
-                    <button className={styles.btn} onSubmit={onsubmit}>Add branch</button>
+                    <button className={styles.btn}  type="button" onClick={onSubmitClick}>Add branch</button>
                 </form>
             </div>
         </div>
