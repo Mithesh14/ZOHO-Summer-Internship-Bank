@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { users } = require("../utils/prisma");
+const uuid = require("uuid");
 
 const prisma = require("../utils/prisma");
 
@@ -24,7 +25,6 @@ exports.login = async (req, res) => {
 
     try {
         const user = await prisma.users.findUnique({where:{phoneNumber:req.body.phoneNumber}});
-
         if(!user)
             return res.status(401).json({message: "Couldn't find your phone number. Try again or create a new account."});
         
@@ -33,19 +33,29 @@ exports.login = async (req, res) => {
         if (!isPasswordSame) 
             return res.status(401).json({ message: "Wrong password."});
         
-        
-        const token = jwt.sign(
-            {
+        const tokenId = uuid.v4();    
+
+        const token = jwt.sign({
                 id: user.id,
-                role: user.role
-            },
-            process.env.TOKEN_SECRET,
-            {
+                role: user.role,
+                tokenId: tokenId,
+            },process.env.TOKEN_SECRET,{
                 expiresIn: '24h'
             }
         );
 
         res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
+        
+        await prisma.token.create({
+            data: {
+                id: tokenId,
+                userId: user.id,
+                token: token,
+                createdat:new Date().toUTCString(),
+                browser: req.body.browser,
+                os: req.body.os
+            }
+        });
         // res.cookie("CSRF-TOKEN", req.csrfToken(), { secure: false });
 
         return res.status(200).json({
@@ -68,14 +78,12 @@ exports.login = async (req, res) => {
 exports.register = async (req, res) => {
     if(!req.body.phoneNumber || !req.body.password|| !req.body.address || !req.body.name || !req.body.role ){
         return res.status(401).json({ message: "Credentials cannot be empty"});
-
     }
     try {
         const user = await prisma.users.findUnique({ where: {phoneNumber: req.body.phoneNumber}});
         
         if(user)
             return res.status(401).json({message: "Phone Number is already registered. Try another"});
-
 
         if(req.body.password.length < 5)
             return res.status(411).json({message: "Use 5 characters or more for your password"});
@@ -109,6 +117,11 @@ exports.register = async (req, res) => {
 
 exports.logout = async (req, res, next) => {
     res.clearCookie("token", {maxAge: 0});
+    await prisma.token.deleteMany({
+        where: {
+            token: req.cookies.token,
+        }
+    });
     return res.status(200).json({data: {message: "Logout successful!"}})
 }
 
@@ -131,6 +144,39 @@ exports.resetPassword = async (req, res, next) => {
         res.clearCookie("token", {maxAge: 0});
 
         return res.status(200).json({message: "Password is changed!"});
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+exports.fetchToken = async (req, res) => {
+    try {
+        const tokens = await prisma.token.findMany({
+            where: {
+                userId: req.user.id
+            }
+        });
+    
+        return res.status(200).json({ tokens,currenttokenId:req.token.id });
+    }
+    catch(e) {
+        console.log(e);
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+exports.deleteToken = async (req, res) => {
+
+    try {
+        await prisma.token.delete({
+            where: {
+                id: req.body.id,
+            }
+        });
+        
+        return res.status(200).json({ message: "Session succesfully terminated" });
     }
     catch(e) {
         console.log(e);

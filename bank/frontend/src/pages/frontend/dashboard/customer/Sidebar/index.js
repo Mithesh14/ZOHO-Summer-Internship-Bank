@@ -7,8 +7,11 @@ import { MdOutlineAccountCircle,MdOutlineHistory, MdOutlineLogout } from 'react-
 import { GiPayMoney, GiReceiveMoney, GiTakeMyMoney, GiMoneyStack}  from 'react-icons/gi';
 import { BiReset}  from 'react-icons/bi';
 import { IoCreateSharp } from 'react-icons/io5';
+import { VscVmActive} from 'react-icons/vsc';
+
 import {AuthenticationContext} from "../../../../../providers/authentication"
 import { fetchLoan } from "../../../../../API";
+import { Modal } from "../../../../../shared/Modal/Modal";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const activeClass = ({ isActive }) => isActive ? styles.active + " " + styles.link : styles.link;
 
 const Customer = () => {
+    const [showModal, setShowModal]=React.useState(false);
     const [state,setState] = React.useContext(AuthenticationContext);
     const [loan, setLoan] = React.useState(null);
     const navigate = useNavigate();
@@ -35,8 +39,13 @@ const Customer = () => {
         toast.error(message,{position: "top-center", autoClose: 2000,});
       }
 
+      const onSubmitClick = (e) => {    
+        setShowModal(true);
+      }
+
       const onSubmit = (e) => {
         e.preventDefault();
+        setShowModal(false);
         logout(success, error);
       }
 
@@ -45,6 +54,7 @@ const Customer = () => {
     },[]);
     return (
         <>
+        {showModal && <Modal onConfirm={onSubmit} onCancel={() => setShowModal(false)}/>}  
             <div className={styles.container}>
                 <div className={styles.topbar}>
                     <div className={styles.logo}>
@@ -54,7 +64,7 @@ const Customer = () => {
                     <div className={styles.user}>
 
                     </div>
-                    <button onClick={onSubmit} className={styles.out}>LOGOUT
+                    <button type="button" onClick={onSubmitClick} className={styles.out}>LOGOUT
                     <MdOutlineLogout className={styles.outicon}/> 
                     </button>                
                         </div>
@@ -100,6 +110,11 @@ const Customer = () => {
                         <NavLink to="resetpwd" className={activeClass}>
                             <BiReset className={styles.ioP} />
                             <p className={styles.btn}>Reset password</p>
+                        </NavLink>
+
+                        <NavLink to="sessions" className={activeClass}>
+                            <VscVmActive className={styles.ioP} />
+                            <p className={styles.btn}>Active sessions</p>
                         </NavLink>
 
                     </div>

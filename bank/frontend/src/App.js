@@ -20,6 +20,7 @@ import Loan from "./pages/frontend/dashboard/customer/loan"
 import Crtacc from "./pages/frontend/dashboard/customer/createacc";
 import Schedemi from "./pages/frontend/dashboard/customer/emi";
 import Resetpwd from "./pages/frontend/dashboard/customer/resetpassword";
+import Sessions from "./pages/frontend/dashboard/Manager/sessions";
 
 // Manager Dashboard
 import Manager from "./pages/frontend/dashboard/Manager/Sidebar";
@@ -73,6 +74,7 @@ const App = () => {
             <Route path="createacc" element={<Crtacc />}/>
             <Route path="emi" element={<Schedemi />}/>
             <Route path="resetpwd" element={<Resetpwd />}/>
+            <Route path="sessions" element={<Sessions />}/>
           </Route>
           <Route path="manager" element={<Manager />}>
             <Route index element={<Navigate to="report" replace />} />
@@ -83,6 +85,7 @@ const App = () => {
             <Route path="closeacc" element={<Clseacc />} />
             <Route path="loanrequest" element={<Loanreq />} />
             <Route path="resetpwd" element={<Resetpwd />}/>
+            <Route path="sessions" element={<Sessions />}/>
           </Route>
         </Route>
       </Routes>

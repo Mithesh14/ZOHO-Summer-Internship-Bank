@@ -1,0 +1,111 @@
+* {
+    font-family: 'Rubik', sans-serif;
+}
+
+.main {
+    position: absolute;
+    top: 30px;
+    width: calc(100% - 260px);
+    min-height: calc(100vh - 20px);
+    left: 260px;
+    background: #f5f5f5;
+}
+
+.h2_cont {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 0 0 10px;
+    margin-top: 5rem;
+    margin-bottom: 20px;
+}
+
+.h2_cont:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 3rem;
+    border-radius: 2px;
+    background-color: #00264D;
+}
+
+.content_table {
+    border-collapse: collapse;
+    margin: 50px 130px;
+    font-size: 1.2rem;
+    min-width: 65rem;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content_table thead tr {
+    background-color: #00264D;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content_table th, td {
+    border-left: 1px solid #eee;
+    border-collapse: collapse;
+  }
+
+  .btn_two {
+    width: 60%;
+    margin-left: 1rem;
+    border: none;
+    align-items: center;
+    padding: 10px 10px;
+    font-family: 'Rubik', sans-serif;
+    cursor: pointer;
+    border-radius: 2rem;
+    text-transform: uppercase;
+    background: #ff0000;
+    color: #fff;
+    letter-spacing: 0.2px;
+    outline: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    
+  }
+
+
+  
+.btn_two:hover {
+    background: #d8d8d8;
+    color: #0D47A1;
+    
+  }
+  
+.content_table th,
+.content_table td {
+    padding: 12px 15px;
+}
+
+.content_table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content_table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content_table tbody tr:last-of-type {
+    border-bottom: 2px solid #00264D;
+}
+
+.content_table tbody tr.active_row {
+    font-weight: bold;
+    color: #00264D;
+}
+
+.content_table tbody tr td p{
+    color: darkgreen;
+    font-size: 1rem;
+    font-weight: 700;
+}

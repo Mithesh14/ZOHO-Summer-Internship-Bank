@@ -68,6 +68,7 @@ model users {
   role        String     @db.Char(1)
   accounts    accounts[]
   loan        loan?
+  token       token[]
 }
 
 model request {
@@ -78,4 +79,16 @@ model request {
   accounts      accounts @relation(fields: [accountNumber], references: [accountNumber], onDelete: NoAction, onUpdate: NoAction, map: "fk_req_acc_accnum")
 
   @@index([accountNumber], map: "fk_req_acc_accnum_idx")
+}
+
+model token {
+  createdat String @db.VarChar(45)
+  id        String @id @db.VarChar(60)
+  userId    Int
+  token     String @db.VarChar(256)
+  browser   String @db.VarChar(50)
+  os        String @db.VarChar(50)
+  users     users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_token_users")
+
+  @@index([userId], map: "fk_token_users_idx")
 }

@@ -19,7 +19,7 @@ export const register = async (data, success, error) => {
 
 export const login = async (data, success, error) => {
     try {
-        const response = await axios.post("/authentication/login", data);
+        const response = await axios.post("/authentication/login", {...data,os:detectOS(),browser:detectBrowser()});
         // document.cookie.split(";").forEach(cookie => {
         //     const [key, value] = cookie.split("=");
         //     if(key === "CSRF-TOKEN") {
@@ -41,6 +41,51 @@ export const logout = async (success, error) => {
     }
 
     catch(e) {
+        error(e.response.data.message);
+    }
+}
+
+export const detectBrowser = () => {
+    const UserAgent = navigator.userAgent;
+  
+    if(UserAgent.match(/chrome|chromium|crios/i)) return "Chrome";
+    if(UserAgent.match(/firefox|fxios/i))         return "Firefox";
+    if(UserAgent.match(/safari/i))                return "Safari";
+    if(UserAgent.match(/opr\//i))                 return "Opera";
+    if(UserAgent.match(/edg/i))                   return "Edge";
+  
+    return "Unknown Browser";
+  };
+  
+  export const detectOS = () => {
+      const UserAgent = navigator.userAgent;
+  
+      if(UserAgent.indexOf("Win")   != -1) return "Windows";
+      if(UserAgent.indexOf("Mac")   != -1) return "MacOS";
+      if(UserAgent.indexOf("X11")   != -1) return "UNIX";
+      if(UserAgent.indexOf("Linux") != -1) return "Linux";
+  
+      return "Unknown OS";
+  }
+
+export const fetchTokens = async (success, error) => {
+    try {
+        const response = await axios.get("/authentication/fetchToken");
+        success(response.data);
+    }
+    catch(e) {
+        console.log(e);
+        error(e.response.data.message);
+    }
+}
+
+export const deleteToken = async (data, success, error) => {
+    try {
+        const response = await axios.post("/authentication/deleteToken", data);
+        success(response.data.message);
+    }
+    catch(e) {
+        console.log(e);
         error(e.response.data.message);
     }
 }

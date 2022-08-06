@@ -51,7 +51,7 @@ const Card = (props) => {
     const activeTypes = {
         0: "Closed",
         1: "Active",
-        2: "Requested"
+        2: "Requested to close"
     }
     
 

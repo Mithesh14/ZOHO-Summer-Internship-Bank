@@ -81,9 +81,7 @@ exports.accounts = async (req, res) => {
 }
 
 exports.depositMoney = async (req, res) => {
-
     const account = await prisma.accounts.findUnique({where:{accountNumber:Number.parseInt(req.body.accountNumber)}});
-
         if(!account) {
             return res.status(411).json({message: "The requested account is not there!"});
         }
@@ -339,6 +337,7 @@ exports.fetchLoan = async (req, res) => {
         res.status(500).json({message:"Internal server error"});
     }
 }
+
 
 // exports.payLoan = async (req, res) => {
 

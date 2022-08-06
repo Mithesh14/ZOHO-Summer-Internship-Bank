@@ -104,7 +104,7 @@ function Register() {
 
             <div className={styles.input_field}>
               <input
-                type="password"
+                type={showpassword?"text":"password"} 
                 className="form-control"
                 name="password"
                 id="password"

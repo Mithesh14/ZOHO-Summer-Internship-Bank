@@ -10,13 +10,15 @@ import { logout} from "../../../../../API"
 import { BiReset}  from 'react-icons/bi';
 import { MdOutlineAddBox, MdEditNote, MdOutlineLogout, MdPersonRemove } from 'react-icons/md';
 import { TbReportAnalytics } from 'react-icons/tb';
-import { VscRequestChanges } from 'react-icons/vsc';
+import { VscRequestChanges, VscVmActive } from 'react-icons/vsc';
+import { Modal } from "../../../../../shared/Modal/Modal";
 
 
 const activeClass = ({ isActive }) => isActive ? styles.active + " " + styles.link : styles.link;
 
 
 const Manager = () => {
+    const [showModal, setShowModal]=React.useState(false);
     const [state,setState] = React.useContext(AuthenticationContext);
     const navigate = useNavigate();
 
@@ -35,12 +37,18 @@ const Manager = () => {
         toast.error(message,{position: "top-center", autoClose: 2000,});
       }
 
+      const onSubmitClick = (e) => {    
+        setShowModal(true);
+      }
+
       const onSubmit = (e) => {
         e.preventDefault();
+        setShowModal(false);
         logout(success, error);
       }
     return (
         <>
+        {showModal && <Modal onConfirm={onSubmit} onCancel={() => setShowModal(false)}/>}  
             <div className={styles.container}>
                 <div className={styles.topbar}>
                     <div className={styles.logo}>
@@ -50,7 +58,7 @@ const Manager = () => {
                     <div className={styles.user}>
 
                     </div>
-                    <button onClick={onSubmit} className={styles.out}>LOGOUT
+                    <button type="button" onClick={onSubmitClick} className={styles.out}>LOGOUT
                     <MdOutlineLogout className={styles.outicon}/> 
                     </button> 
                     
@@ -86,7 +94,10 @@ const Manager = () => {
                             <p className={styles.btn}>Reset password</p>
                         </NavLink>
 
-
+                        <NavLink to="sessions" className={activeClass}>
+                            <VscVmActive className={styles.ioP} />
+                            <p className={styles.btn}>Active sessions</p>
+                        </NavLink>
 
                     </div>
                 </div>
